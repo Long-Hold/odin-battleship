@@ -18,7 +18,7 @@ export class Ship {
     }
 
     set type(type) {
-        if (type) throw new Error('Cannot re-assign Ship type.');
+        if (this.#type) throw new Error('Cannot re-assign Ship type.');
 
         const trimmedType = type.toLowerCase().trim();
         if (!Ship.TYPES.has(trimmedType)) throw new Error(`${trimmedType} is not a valid ship type.`);

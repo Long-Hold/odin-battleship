@@ -36,4 +36,9 @@ export class Ship {
     get hitCounter() {
         return this.#hitCounter;
     }
+
+    hit() {
+        this.#hitCounter += 1;
+        return this;
+    }
 }

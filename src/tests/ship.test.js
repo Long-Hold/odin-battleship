@@ -19,4 +19,17 @@ describe('class Ship', () => {
             }
         });
     });
+    describe('Ship.hit()', () => {
+        test('Increments the hit counter each time the method is called.', () => {
+            const ship = new Ship('carrier');
+            
+            expect(ship.hitCounter).toBe(0);
+            ship.hit();
+            expect(ship.hitCounter).toBe(1);
+            ship.hit();
+            expect(ship.hitCounter).toBe(2);
+            ship.hit();
+            expect(ship.hitCounter).toBe(3);
+        });
+    });
 });

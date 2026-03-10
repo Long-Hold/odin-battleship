@@ -36,17 +36,7 @@ export class Gameboard {
     }
 
     placeShip(coordinate, shipType) {
-        if (typeof coordinate !== 'string' || typeof shipType !== 'string')
-            throw new TypeError('coordinate and shipType must be strings');
 
-        const trimmedCoords = coordinate.toUpperCase().trim();
-        if (!trimmedCoords)
-            throw new Error('coordinates cannot be blank or whitespace');
-
-        if (Gameboard.isOutOfBounds(trimmedCoords))
-            throw new RangeError(`${trimmedCoords} is out of bounds`);
-
-        const ship = new Ship(shipType);
     }
 
     /**

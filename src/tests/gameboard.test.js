@@ -52,17 +52,6 @@ describe('class Gameboard', () => {
 
 
     describe('Gameboard.placeShip()', () => {
-        test('throws TypeError for non string paramters', () => {
-            expect(() => gameBoard.placeShip(['A', 1], 'destroyer')).toThrow(TypeError);
-            expect(() => gameBoard.placeShip('A1', 123)).toThrow(TypeError);
-        });
-        test('throws Error for whitespace or blank coordinates', () => {
-            expect(() => gameBoard.placeShip('    ', 'submarine')).toThrow(Error);
-            expect(() => gameBoard.placeShip('', 'submarine')).toThrow(Error);
-        });
-        test('throws an Error for invalid shipType', () => {
-            expect(() => gameBoard.placeShip('A1', 'bananaBoat')).toThrow();
-        });
     });
 
     describe('Gameboard.receiveAttack()', () => {

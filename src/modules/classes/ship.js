@@ -37,8 +37,16 @@ export class Ship {
         return this.#hitCounter;
     }
 
+    /**
+     * Increments the hitCounter property.
+     * If hitCounter exceeds the length of the ship, then it is assigned the value of the
+     * ships length.
+     * 
+     * @returns {this} An instance of the object for chaining with other methods.
+     */
     hit() {
-        this.#hitCounter += 1;
+        if (this.#hitCounter >= this.#length) this.#hitCounter = this.#length;
+        else this.#hitCounter += 1;
         return this;
     }
 }

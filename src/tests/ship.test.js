@@ -31,5 +31,18 @@ describe('class Ship', () => {
             ship.hit();
             expect(ship.hitCounter).toBe(3);
         });
+        test('Does not increment hitCounter if hitCounter is the same as ship length', () => {
+            const ship = new Ship('destroyer');
+            expect(ship.hitCounter).not.toBe(ship.length);
+
+            for (let i = 0; i < ship.length; ++i) ship.hit();
+            expect(ship.hitCounter).toBe(ship.length);
+
+            // The hitCounter property should remain the same as the ship.length at this point
+            ship.hit();
+            ship.hit();
+            ship.hit();
+            expect(ship.hitCounter).toBe(ship.length);
+        });
     });
 });

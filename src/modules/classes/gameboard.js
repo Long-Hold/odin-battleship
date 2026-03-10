@@ -2,8 +2,9 @@ import { Ship } from "./ship";
 
 export class Gameboard {
     static isOutOfBounds(coordinate) {
-        const char = coordinate[0];
-        const intPart = parseInt(coordinate.slice(1));
+        const normalized = coordinate.toUpperCase().trim();
+        const char = normalized[0];
+        const intPart = parseInt(normalized.slice(1));
 
         return (char < 'A' || char > 'J') || (intPart < 1 || intPart > 10);
     }

@@ -45,4 +45,26 @@ describe('class Ship', () => {
             expect(ship.hitCounter).toBe(ship.length);
         });
     });
+    describe('Ship.isSunk()', () => {
+        test('returns false if hitCount !== length', () => {
+            const ship = new Ship('patrolboat');
+            expect(ship.isSunk()).toBe(false);
+
+            ship.hit();
+            expect(ship.isSunk()).toBe(false);
+        });
+        test('returns true if hitCount === length', () => {
+            const ship = new Ship('submarine');
+            expect(ship.isSunk()).toBe(false);
+
+            while (ship.hitCounter < ship.length) ship.hit();
+            expect(ship.isSunk()).toBe(true);
+
+            // Still returns true after incrementing beyond length
+            ship.hit();
+            ship.hit();
+            ship.hit();
+            expect(ship.isSunk()).toBe(true);
+        });
+    });
 });

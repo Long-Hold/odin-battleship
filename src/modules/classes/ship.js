@@ -49,4 +49,15 @@ export class Ship {
         else this.#hitCounter += 1;
         return this;
     }
+
+    /**
+     * Indicates if the ship has been sunk by comparing the hitCounter to the length.
+     * If they are equal, returns true indicating the ship has been sunk,
+     * otherwise returns false.
+     * 
+     * @returns {boolean} True if ship is sunk. False is not.
+     */
+    isSunk() {
+        return this.#hitCounter === this.#length;
+    }
 }

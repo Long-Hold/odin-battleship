@@ -33,11 +33,13 @@ export class Gameboard {
     }
 
     /**
-     * Creates a new Ship object and recordss it's position on the game board.
+     * Receives coordinates as a string and checks the square on the grid.
+     * If the square contains a ship, then the ship object hitCounter is updated.
      * 
-     * @param {string} coordinate - The coordinates to place the ship into. 
+     * 
+     * @param {string} coordinate - The coordinates to check. 
      */
-    placeShip(coordinate) {
+    receiveAttack(coordinate) {
         if (typeof coordinate !== 'string')
             throw new TypeError('coordinate must be passed as a string');
 

@@ -6,23 +6,23 @@ describe('class Gameboard', () => {
         gameBoard = new Gameboard();
     });
 
-    describe('Gameboard.placeShip()', () => {
+    describe('Gameboard.receiveAttack()', () => {
         test.each(
             [1, [], new String(), null]
         )('throws TypeError for non-string parameter', (input) => {
-            expect(() => gameBoard.placeShip(input)).toThrow(TypeError);
+            expect(() => gameBoard.receiveAttack(input)).toThrow(TypeError);
         });
         test.each(
             ['', '  ', '         ']
         )('throws Error when passed whitespace or empty strings', (input) => {
-            expect(() => gameBoard.placeShip(input)).toThrow(Error);
+            expect(() => gameBoard.receiveAttack(input)).toThrow(Error);
         });
         test('throws RangeError for out-of-bounds X coordinates', () => {
             for (let i = 'A'.charCodeAt(0); i <= 'J'.charCodeAt(0); ++i) {
                 const invalidOne = `${String.fromCharCode(i)}0`;
                 const invalidTwo = `${String.fromCharCode(i)}11`;
-                expect(() => gameBoard.placeShip(invalidOne)).toThrow(RangeError);
-                expect(() => gameBoard.placeShip(invalidTwo)).toThrow(RangeError);
+                expect(() => gameBoard.receiveAttack(invalidOne)).toThrow(RangeError);
+                expect(() => gameBoard.receiveAttack(invalidTwo)).toThrow(RangeError);
             }
         });
         test('throws RangeError for out-of-bounds Y coordinates', () => {
@@ -33,18 +33,18 @@ describe('class Gameboard', () => {
                 const invalidFour = `M${i}`;
                 const invalidFive = `${i}`;
 
-                expect(() => gameBoard.placeShip(invalidOne)).toThrow(RangeError);
-                expect(() => gameBoard.placeShip(invalidTwo)).toThrow(RangeError);
-                expect(() => gameBoard.placeShip(invalidThree)).toThrow(RangeError);
-                expect(() => gameBoard.placeShip(invalidFour)).toThrow(RangeError);
-                expect(() => gameBoard.placeShip(invalidFive)).toThrow(RangeError);
+                expect(() => gameBoard.receiveAttack(invalidOne)).toThrow(RangeError);
+                expect(() => gameBoard.receiveAttack(invalidTwo)).toThrow(RangeError);
+                expect(() => gameBoard.receiveAttack(invalidThree)).toThrow(RangeError);
+                expect(() => gameBoard.receiveAttack(invalidFour)).toThrow(RangeError);
+                expect(() => gameBoard.receiveAttack(invalidFive)).toThrow(RangeError);
             }
         });
         test('does not throw any errors for valid coordinates', () => {
             for (let i = 'A'.charCodeAt(0); i < 'J'.charCodeAt(0); ++i) {
                 for (let j = 1; j <= 10; ++j) {
                     const coordinate = `${String.fromCharCode(i)}${j}`;
-                    expect(() => gameBoard.placeShip(coordinate)).not.toThrow();
+                    expect(() => gameBoard.receiveAttack(coordinate)).not.toThrow();
                 }
             }
         });
@@ -52,7 +52,7 @@ describe('class Gameboard', () => {
             for (let i = 'a'.charCodeAt(0); i < 'j'.charCodeAt(0); ++i) {
                 for (let j = 1; j <= 10; ++j) {
                     const coordinate = `${String.fromCharCode(i)}${j}`;
-                    expect(() => gameBoard.placeShip(coordinate)).not.toThrow();
+                    expect(() => gameBoard.receiveAttack(coordinate)).not.toThrow();
                 }
             }
         });

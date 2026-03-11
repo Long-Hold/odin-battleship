@@ -35,8 +35,9 @@ export class Gameboard {
         this.#guessedSpaces = new Set();
     }
 
-    placeShip(coordinate, shipType) {
-
+    placeShip(coordinates, shipType) {
+        if (!Array.isArray(coordinates))
+            throw new TypeError('coordinates must be passed as an array');
     }
 
     /**

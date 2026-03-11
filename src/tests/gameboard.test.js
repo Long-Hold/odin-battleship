@@ -52,6 +52,9 @@ describe('class Gameboard', () => {
 
 
     describe('Gameboard.placeShip()', () => {
+        test('throws TypeError if coordinates are not an array', () => {
+            expect(() => gameBoard.placeShip('A1A2A3', 'submarine')).toThrow(TypeError);
+        });
     });
 
     describe('Gameboard.receiveAttack()', () => {

@@ -38,6 +38,10 @@ export class Gameboard {
     placeShip(coordinates, shipType) {
         if (!Array.isArray(coordinates))
             throw new TypeError('coordinates must be passed as an array');
+
+        for (const coordinate of coordinates)
+            if (Gameboard.isOutOfBounds(coordinate))
+                throw new RangeError(`${coordinate} is out of bounds`);
     }
 
     /**

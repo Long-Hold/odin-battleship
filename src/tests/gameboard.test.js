@@ -55,6 +55,13 @@ describe('class Gameboard', () => {
         test('throws TypeError if coordinates are not an array', () => {
             expect(() => gameBoard.placeShip('A1A2A3', 'submarine')).toThrow(TypeError);
         });
+        test.each([
+            [['A1','A2','A0']],
+            [['B-1','B2','B3']],
+            [['I1','J1','K1']],
+        ])('throws RangeError if coordinates array has invalid coordinate', (coordinates) => {
+            expect(() => gameBoard.placeShip(coordinates)).toThrow(RangeError);
+        });
     });
 
     describe('Gameboard.receiveAttack()', () => {

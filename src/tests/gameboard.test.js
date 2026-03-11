@@ -60,7 +60,7 @@ describe('class Gameboard', () => {
             [['B-1','B2','B3']],
             [['I1','J1','K1']],
         ])('throws RangeError if coordinates array has invalid coordinate', (coordinates) => {
-            expect(() => gameBoard.placeShip(coordinates)).toThrow(RangeError);
+            expect(() => gameBoard.placeShip(coordinates, 'destroyer')).toThrow(RangeError);
         });
         test.each([
             {coords: ['A1','A2','A3'], ship: 'patrolboat'},

@@ -42,6 +42,10 @@ export class Gameboard {
         for (const coordinate of coordinates)
             if (Gameboard.isOutOfBounds(coordinate))
                 throw new RangeError(`${coordinate} is out of bounds`);
+        
+        const ship = new Ship(shipType);
+        if (coordinates.length !== ship.length)
+            throw new Error(`coordinates range (${coordinates}) is larger than ship length (${ship.length})`);
     }
 
     /**

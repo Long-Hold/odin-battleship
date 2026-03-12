@@ -25,6 +25,12 @@ export class Gameboard {
     #shipPlacements;
 
     /**
+     * Stores references to Ship objects.
+     * This set exists to prevent duplicate ships being placed in the Gameboard.
+     */
+    #placedShips;
+
+    /**
      * A set that stores the players guessed spaces against the other players board.
      * The set structure prevents the player from making multiple guesses on the same space.
      */
@@ -32,12 +38,16 @@ export class Gameboard {
 
     constructor() {
         this.#shipPlacements = new Map();
+        this.#placedShips = new Set();
         this.#guessedSpaces = new Set();
     }
 
     placeShip(coordinates, shipType) {
         if (!Array.isArray(coordinates))
             throw new TypeError('coordinates must be passed as an array');
+
+        if (this.#placedShips.has(shipType.toLowerCase().trim()))
+            throw new Error(`${shipType} has already been placed on the board`;)
 
         /**
          * Normalize coordinates while checking if they are within bounds, and the space
@@ -59,6 +69,8 @@ export class Gameboard {
         const ship = new Ship(shipType);
         if (normalizedCoords.length !== ship.length)
             throw new Error(`coordinates range (${coordinates}) is larger than ship length (${ship.length})`);
+
+        this.#placedShips.add(shipType.toLowerCase().trim());
 
         for (const coordinate of normalizedCoords)
             this.#shipPlacements.set(coordinate, ship);

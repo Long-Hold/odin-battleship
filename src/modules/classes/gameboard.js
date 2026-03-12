@@ -46,9 +46,6 @@ export class Gameboard {
         if (!Array.isArray(coordinates))
             throw new TypeError('coordinates must be passed as an array');
 
-        if (this.#placedShips.has(shipType.toLowerCase().trim()))
-            throw new Error(`${shipType} has already been placed on the board`;)
-
         /**
          * Normalize coordinates while checking if they are within bounds, and the space
          * is not occupied in the same loop.
@@ -67,10 +64,13 @@ export class Gameboard {
         }
         
         const ship = new Ship(shipType);
+        if (this.#placedShips.has(ship.type))
+            throw new Error(`${ship.type} has already been placed on the board`);
+
         if (normalizedCoords.length !== ship.length)
             throw new Error(`coordinates range (${coordinates}) is larger than ship length (${ship.length})`);
 
-        this.#placedShips.add(shipType.toLowerCase().trim());
+        this.#placedShips.add(ship.type);
 
         for (const coordinate of normalizedCoords)
             this.#shipPlacements.set(coordinate, ship);

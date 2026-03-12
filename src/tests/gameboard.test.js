@@ -78,6 +78,10 @@ describe('class Gameboard', () => {
             // If third coordinate is occupied
             expect(() => gameBoard.placeShip(['A1','B1','C1','D1'], 'battleship')).toThrow(Error);
         });
+        test('throws Error if a duplicate ship is added', () => {
+            expect(() => gameBoard.placeShip(['A1','B1'], 'patrolboat')).not.toThrow();
+            expect(() => gameBoard.placeShip(['A2','B2'], 'patrolboat')).toThrow(Error);
+        });
     });
 
     describe('Gameboard.receiveAttack()', () => {

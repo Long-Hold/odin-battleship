@@ -59,6 +59,11 @@ export class Gameboard {
         const ship = new Ship(shipType);
         if (normalizedCoords.length !== ship.length)
             throw new Error(`coordinates range (${coordinates}) is larger than ship length (${ship.length})`);
+
+        for (const coordinate of normalizedCoords)
+            this.#shipPlacements.set(coordinate, ship);
+
+        return this;
     }
 
     /**

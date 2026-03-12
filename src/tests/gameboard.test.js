@@ -69,6 +69,15 @@ describe('class Gameboard', () => {
         ])('throws Error if coordinates array length is larger than ship length', ({coords, ship}) => {
             expect(() => gameBoard.placeShip(coords, ship)).toThrow(Error);
         });
+        test('throws Error if a coordinate is already occupied', () => {
+            gameBoard.placeShip(['A1','B1','C1'], 'submarine');
+            // If first coordinate is occupied
+            expect(() => gameBoard.placeShip(['A1','A2','A3'], 'destroyer')).toThrow(Error);
+            // If second coordinate is occupied
+            expect(() => gameBoard.placeShip(['A1','B1'], 'patrolboat')).toThrow(Error);
+            // If third coordinate is occupied
+            expect(() => gameBoard.placeShip(['A1','B1','C1','D1'], 'battleship')).toThrow(Error);
+        });
     });
 
     describe('Gameboard.receiveAttack()', () => {

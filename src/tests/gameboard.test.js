@@ -8,6 +8,16 @@ describe('class Gameboard', () => {
 
     describe('static methods', () => {
         describe('Gameboard.isOutOfBounds()', () => {
+            test.each([
+                [], 123, {}
+            ])('returns true when passed non-string param', (input) => {
+                expect(Gameboard.isOutOfBounds(input)).toBe(true);
+            })
+            test('returns true when passed empty or whitespace strings', () => {
+                expect(Gameboard.isOutOfBounds('')).toBe(true);
+                expect(Gameboard.isOutOfBounds('  ')).toBe(true);
+                expect(Gameboard.isOutOfBounds('     ')).toBe(true);
+            });
             test('returns true for out-of-bounds X coordinates', () => {
                 for (let i = 'A'.charCodeAt(0); i <= 'J'.charCodeAt(0); ++i) {
                     const invalidOne = `${String.fromCharCode(i)}0`;
@@ -81,19 +91,6 @@ describe('class Gameboard', () => {
         test('throws Error if a duplicate ship is added', () => {
             expect(() => gameBoard.placeShip(['A1','B1'], 'patrolboat')).not.toThrow();
             expect(() => gameBoard.placeShip(['A2','B2'], 'patrolboat')).toThrow(Error);
-        });
-    });
-
-    describe('Gameboard.receiveAttack()', () => {
-        test.each(
-            [1, [], new String(), null]
-        )('throws TypeError for non-string parameter', (input) => {
-            expect(() => gameBoard.receiveAttack(input)).toThrow(TypeError);
-        });
-        test.each(
-            ['', '  ', '         ']
-        )('throws Error when passed whitespace or empty strings', (input) => {
-            expect(() => gameBoard.receiveAttack(input)).toThrow(Error);
         });
     });
 });

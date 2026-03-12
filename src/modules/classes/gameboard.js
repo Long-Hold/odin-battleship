@@ -2,7 +2,13 @@ import { Ship } from "./ship";
 
 export class Gameboard {
     static isOutOfBounds(coordinate) {
+        if (typeof coordinate !== 'string')
+            return true;
+
         const normalized = coordinate.toUpperCase().trim();
+        if (!normalized)
+            return true;
+
         const char = normalized[0];
         const intPart = parseInt(normalized.slice(1));
 
@@ -76,24 +82,5 @@ export class Gameboard {
             this.#shipPlacements.set(coordinate, ship);
 
         return this;
-    }
-
-    /**
-     * Receives coordinates as a string and checks the square on the grid.
-     * If the square contains a ship, then the ship object hitCounter is updated.
-     * 
-     * 
-     * @param {string} coordinate - The coordinates to check. 
-     */
-    receiveAttack(coordinate) {
-        if (typeof coordinate !== 'string')
-            throw new TypeError('coordinate must be passed as a string');
-
-        const trimmedCoords = coordinate.toUpperCase().trim();
-        if (!trimmedCoords)
-            throw new Error('coordinates cannot be blank or whitespace');
-
-        if (Gameboard.isOutOfBounds(trimmedCoords))
-            throw new RangeError(`${trimmedCoords} is out of bounds`);
     }
 }

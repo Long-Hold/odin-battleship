@@ -39,12 +39,25 @@ export class Gameboard {
         if (!Array.isArray(coordinates))
             throw new TypeError('coordinates must be passed as an array');
 
-        for (const coordinate of coordinates)
-            if (Gameboard.isOutOfBounds(coordinate))
-                throw new RangeError(`${coordinate} is out of bounds`);
+        /**
+         * Normalize coordinates while checking if they are within bounds, and the space
+         * is not occupied in the same loop.
+         */
+        const normalizedCoords = [];
+        for (const coordinate of coordinates) {
+            const normCoord = coordinate.toUpperCase().trim();
+
+            if (Gameboard.isOutOfBounds(normCoord))
+                throw new RangeError(`${normCoord} is out of bounds`);
+
+            if (this.#shipPlacements.has(normCoord))
+                throw new Error(`${normCoord} is already occupied by another ship`);
+            
+            normalizedCoords.push(normCoord);
+        }
         
         const ship = new Ship(shipType);
-        if (coordinates.length !== ship.length)
+        if (normalizedCoords.length !== ship.length)
             throw new Error(`coordinates range (${coordinates}) is larger than ship length (${ship.length})`);
     }
 

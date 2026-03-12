@@ -1,18 +1,20 @@
 import { Ship } from "./ship";
 
 export class Gameboard {
+    /**
+     * Compares the coordinate string against a regex pattern.
+     * Coordinates should only ever have 1 letter between and including the letters
+     * 'A' to 'J', and the a value between and including '1' to '1o'.
+     * 
+     * If the string does not pass these requirements, then it returns true to indicate
+     * the coordinate is out-of-bounds.
+     * 
+     * @param {string} coordinate - The string to check for validity
+     * @returns {boolean} True if coordinate is invalid. False if it is valid.
+     */
     static isOutOfBounds(coordinate) {
-        if (typeof coordinate !== 'string')
-            return true;
-
-        const normalized = coordinate.toUpperCase().trim();
-        if (!normalized)
-            return true;
-
-        const char = normalized[0];
-        const intPart = parseInt(normalized.slice(1));
-
-        return (char < 'A' || char > 'J') || (intPart < 1 || intPart > 10);
+        const validCoordRegex = /^[A-Ja-j]([1-9]|10)$/;
+        return !validCoordRegex.test(coordinate);
     }
     /**
      * A Map() that stores Key: Values of the coordinate and it's linked ship in a 

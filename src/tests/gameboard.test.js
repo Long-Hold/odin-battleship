@@ -100,4 +100,12 @@ describe('class Gameboard', () => {
             expect(() => gameBoard.placeShip(['c8','D8','e8','f8','G8'], '  CarRier ')).not.toThrow();
         });
     });
+
+    describe('Gameboard.receiveAttack()', () => {
+        test.each([
+            'A0', 'A11', 'J0', 'J11', 'K4', {}, '', '  ', 123.23
+        ])('throws RangeError for invalid coordinates', (input) => {
+            expect(() => gameBoard.receiveAttack(input)).toThrow(RangeError);
+        });
+    });
 });

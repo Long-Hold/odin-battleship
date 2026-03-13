@@ -93,4 +93,17 @@ export class Gameboard {
 
         return this;
     }
+
+    receiveAttack(coordinate) {
+        if (Gameboard.isOutOfBounds(coordinate))
+            throw new RangeError(`${coordinate} is out-of-bounds of the grid`);
+        
+        const normCoord = coordinate.toUpperCase().trim();
+        const ship = this.#shipPlacements.get(normCoord);
+
+        if (!ship) return false;
+
+        ship.hit();
+        return true;
+    }
 }

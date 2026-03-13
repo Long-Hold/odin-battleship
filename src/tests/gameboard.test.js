@@ -92,5 +92,12 @@ describe('class Gameboard', () => {
             expect(() => gameBoard.placeShip(['A1','B1'], 'patrolboat')).not.toThrow();
             expect(() => gameBoard.placeShip(['A2','B2'], 'patrolboat')).toThrow(Error);
         });
+        test('does not throw when adding valid ships and placements', () => {
+            expect(() => gameBoard.placeShip(['a1','a2'], 'patrolboat')).not.toThrow();
+            expect(() => gameBoard.placeShip(['J10', 'i10','H10'], 'Submarine')).not.toThrow();
+            expect(() => gameBoard.placeShip(['J6', 'J7', 'J8'], 'DESTROYER')).not.toThrow();
+            expect(() => gameBoard.placeShip(['A3','A4','A5','a6'], 'bAttleShip  ')).not.toThrow();
+            expect(() => gameBoard.placeShip(['c8','D8','e8','f8','G8'], '  CarRier ')).not.toThrow();
+        });
     });
 });

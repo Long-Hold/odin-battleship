@@ -107,5 +107,26 @@ describe('class Gameboard', () => {
         ])('throws RangeError for invalid coordinates', (input) => {
             expect(() => gameBoard.receiveAttack(input)).toThrow(RangeError);
         });
+
+        beforeEach(() => {
+            gameBoard.placeShip(['A1','A2'], 'patrolboat');
+            gameBoard.placeShip(['J10', 'I10','H10'], 'Submarine');
+            gameBoard.placeShip(['J6', 'J7', 'J8'], 'DESTROYER');
+            gameBoard.placeShip(['A3','A4','A5','A6'], 'bAttleShip  ');
+            gameBoard.placeShip(['C8','D8','E8','F8','G8'], '  CarRier ');
+        });
+
+        test('returns false if no ship was on passed coordinate', () => {
+            expect(gameBoard.receiveAttack('A7')).toBe(false);
+            expect(gameBoard.receiveAttack('G10')).toBe(false);
+            expect(gameBoard.receiveAttack('b7')).toBe(false);
+            expect(gameBoard.receiveAttack('A1')).not.toBe(false);
+        });
+        
+        test('returns true if ship was present on coordinate', () => {
+            expect(gameBoard.receiveAttack('A1')).toBe(true);
+            expect(gameBoard.receiveAttack('E8')).toBe(true);
+            expect(gameBoard.receiveAttack('J7')).toBe(true);
+        });
     });
 });

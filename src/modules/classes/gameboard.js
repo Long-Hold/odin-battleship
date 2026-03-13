@@ -94,6 +94,15 @@ export class Gameboard {
         return this;
     }
 
+    /**
+     * Checks if the opposing players selected coordinate to attack has hit a ship.
+     * If a ship has been hit, then the respective Ship.hit() method is called and returns true.
+     * 
+     * If no ship is hit, return false.
+     * 
+     * @param {string} coordinate - The coordinate the opposing player attacked.
+     * @returns {boolean} True if a ship was hit. False if no ship was hit.
+     */
     receiveAttack(coordinate) {
         if (Gameboard.isOutOfBounds(coordinate))
             throw new RangeError(`${coordinate} is out-of-bounds of the grid`);

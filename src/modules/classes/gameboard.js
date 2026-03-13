@@ -50,6 +50,14 @@ export class Gameboard {
         this.#guessedSpaces = new Set();
     }
 
+    /**
+     * Creates a ship object and links the coordinates it was placed on to that
+     * ship object.
+     * 
+     * @param {string[]} coordinates - An array of coordinates linked to the ship.
+     * @param {string} shipType - The type of ship to be created and placed.
+     * @returns {this} The Gameboard instance for chaining.
+     */
     placeShip(coordinates, shipType) {
         if (!Array.isArray(coordinates))
             throw new TypeError('coordinates must be passed as an array');

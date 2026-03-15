@@ -33,8 +33,9 @@ export class Gameboard {
     #shipPlacements;
 
     /**
-     * Stores references to Ship objects.
-     * This set exists to prevent duplicate ships being placed in the Gameboard.
+     * Stores references to created ship objects by using their string name as the key.
+     * This Map() allows checking to prevent duplicate ship placement, and for retrieving a
+     * ship object if any Ship methods need to be called.
      */
     #placedShips;
 
@@ -46,7 +47,7 @@ export class Gameboard {
 
     constructor() {
         this.#shipPlacements = new Map();
-        this.#placedShips = new Set();
+        this.#placedShips = new Map();
         this.#guessedSpaces = new Set();
     }
 
@@ -86,7 +87,7 @@ export class Gameboard {
         if (normalizedCoords.length !== ship.length)
             throw new Error(`coordinates range (${coordinates}) is larger than ship length (${ship.length})`);
 
-        this.#placedShips.add(ship.type);
+        this.#placedShips.set(ship.type, ship);
 
         for (const coordinate of normalizedCoords)
             this.#shipPlacements.set(coordinate, ship);

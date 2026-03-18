@@ -129,4 +129,47 @@ describe('class Gameboard', () => {
             expect(gameBoard.receiveAttack('J7')).toBe(true);
         });
     });
+
+    describe('Gameboard.allShipsSunk()', () => {
+        beforeEach(() => {
+            gameBoard.placeShip(['A1','A2'], 'patrolboat');
+            gameBoard.placeShip(['J10', 'I10','H10'], 'Submarine');
+            gameBoard.placeShip(['J6', 'J7', 'J8'], 'DESTROYER');
+            gameBoard.placeShip(['A3','A4','A5','A6'], 'bAttleShip  ');
+            gameBoard.placeShip(['C8','D8','E8','F8','G8'], '  CarRier ');
+        });
+        test('returns false if no ships are sunk', () => {
+            expect(gameBoard.allShipsSunk()).toBe(false);
+        });
+        test('returns false if only some ships are sunk', () => {
+            gameBoard.receiveAttack('A1');
+            gameBoard.receiveAttack('A2');
+
+            gameBoard.receiveAttack('J6');
+            gameBoard.receiveAttack('J7');
+            gameBoard.receiveAttack('J8');
+
+            expect(gameBoard.allShipsSunk()).toBe(false);
+        });
+        test('returns true if every ship is sunk', () => {
+            gameBoard.receiveAttack('A1');
+            gameBoard.receiveAttack('A2');
+            gameBoard.receiveAttack('J10');
+            gameBoard.receiveAttack('I10');
+            gameBoard.receiveAttack('H10');
+            gameBoard.receiveAttack('J6');
+            gameBoard.receiveAttack('J7');
+            gameBoard.receiveAttack('J8');
+            gameBoard.receiveAttack('A3');
+            gameBoard.receiveAttack('A4');
+            gameBoard.receiveAttack('A5');
+            gameBoard.receiveAttack('A6');
+            gameBoard.receiveAttack('C8');
+            gameBoard.receiveAttack('D8');
+            gameBoard.receiveAttack('E8');
+            gameBoard.receiveAttack('F8');
+            gameBoard.receiveAttack('G8');
+            expect(gameBoard.allShipsSunk()).toBe(true);
+        });
+    });
 });

@@ -116,4 +116,15 @@ export class Gameboard {
         ship.hit();
         return true;
     }
+
+    /**
+     * Checks the value of Ship.isSunk() method on each ship in the gameboard.
+     * If isSunk() returns true for each ship, then this method returns True to signify
+     * that.
+     * 
+     * @returns {boolean} True if all ships are sunk. False is not.
+     */
+    allShipsSunk() {
+        return [...this.#placedShips.values()].every((ship) => ship.isSunk() === true);
+    }
 }

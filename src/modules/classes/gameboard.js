@@ -118,6 +118,28 @@ export class Gameboard {
     }
 
     /**
+     * Records guessed coordinates made against an opposing players Gameboard. Players
+     * know what attacks they have made.
+     * 
+     * Placed attacks are recorded in a set to prevent duplicate placements.
+     * 
+     * @param {string} coordinate - The coordinate guessed on the opposition's board. 
+     * @returns {this} The Gameboard instance for chaining.
+     */
+    recordPlacedAttack(coordinate) {
+        if (Gameboard.isOutOfBounds(coordinate))
+            throw new RangeError(`${coordinate} is out-of-bounds of the grid`);
+
+        const normCoord = coordinate.toUpperCase().trim();
+
+        if (this.#guessedSpaces.has(normCoord))
+            throw new Error(`${coordinate} has already been played`);
+
+        this.#guessedSpaces.add(normCoord);
+        return this;
+    }
+
+    /**
      * Checks the value of Ship.isSunk() method on each ship in the gameboard.
      * If isSunk() returns true for each ship, then this method returns True to signify
      * that.

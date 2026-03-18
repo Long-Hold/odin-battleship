@@ -130,6 +130,23 @@ describe('class Gameboard', () => {
         });
     });
 
+    describe('Gameboard.recordPlacedAttack()', () => {
+        test('throws RangeError when passed invalid coordinate string', () => {
+            expect(() => gameBoard.recordPlacedAttack('a11')).toThrow(RangeError);
+            expect(() => gameBoard.recordPlacedAttack('')).toThrow(RangeError);
+            expect(() => gameBoard.recordPlacedAttack('K1')).toThrow(RangeError);
+        });
+        test('does not throw when passed unique coordinate, then throws when passed duplicate', () => {
+            expect(() => gameBoard.recordPlacedAttack('A1')).not.toThrow();
+            expect(() => gameBoard.recordPlacedAttack('b10')).not.toThrow();
+            expect(() => gameBoard.recordPlacedAttack('c9')).not.toThrow();
+
+            expect(() => gameBoard.recordPlacedAttack('a1')).toThrow(Error);
+            expect(() => gameBoard.recordPlacedAttack('B10')).toThrow(Error);
+            expect(() => gameBoard.recordPlacedAttack('C9')).toThrow(Error);
+        });
+    });
+
     describe('Gameboard.allShipsSunk()', () => {
         beforeEach(() => {
             gameBoard.placeShip(['A1','A2'], 'patrolboat');

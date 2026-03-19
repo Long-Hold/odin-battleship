@@ -207,3 +207,21 @@ Add the correct display in Chrome and Safari.
 summary {
   display: list-item;
 }
+
+/* 
+=====
+MY STYLES BELOW THIS LINE
+=====
+ */
+
+ .game-grid {
+  width: fit-content;
+  display: grid;
+  grid-template-rows: repeat(10, 50px);
+  grid-template-columns: repeat(10, 50px);
+  background-color: beige;
+
+  div {
+    border: 1px solid black;
+  }
+ }

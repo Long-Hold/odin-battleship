@@ -2,6 +2,18 @@ import { Ship } from "./ship";
 
 export class Gameboard {
     /**
+     * A map that represents the boundaries of the game grid.
+     * 
+     * This can be used by DOM methods or verification methods to help generate gameboards
+     * or verify something is within bounds of the game while allowing this
+     * class to maintain control of game logic.
+     */
+    static BOUNDS = { 
+        COL: { START: 'A'.charCodeAt(), END: 'J'.charCodeAt() }, 
+        ROW: { START: 1, END: 10 }
+    }
+
+    /**
      * Compares the coordinate string against a regex pattern.
      * Coordinates should only ever have 1 letter between and including the letters
      * 'A' to 'J', and the a value between and including '1' to '1o'.
@@ -16,6 +28,7 @@ export class Gameboard {
         const validCoordRegex = /^[A-Ja-j]([1-9]|10)$/;
         return !validCoordRegex.test(coordinate);
     }
+
     /**
      * A Map() that stores Key: Values of the coordinate and it's linked ship in a 
      * <string, ship> fashion.

@@ -213,12 +213,28 @@ summary {
 MY STYLES BELOW THIS LINE
 =====
  */
+body {
+  height: 100vh;
+}
+
+ #game-grids-container {
+  height: 100%;
+  display: flex;
+  gap: 1rem;
+  place-content: center;
+  align-items: center;
+  flex-flow: row wrap;
+ }
 
  .game-grid {
+  height: fit-content;
   width: fit-content;
+  --cell-size: min(50px, calc((100vw - 2rem) / 10));
+
   display: grid;
-  grid-template-rows: repeat(10, 50px);
-  grid-template-columns: repeat(10, 50px);
+  grid-template-rows: repeat(10, var(--cell-size));
+  grid-template-columns: repeat(10, var(--cell-size));
+
   background-color: beige;
 
   div {

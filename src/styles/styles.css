@@ -227,7 +227,7 @@ body {
  }
 
  .game-grid {
-  width: clamp(300px, 40%, 800px);
+  width: clamp(300px, 40%, 550px);
   aspect-ratio: 1/1;
 
   display: grid;

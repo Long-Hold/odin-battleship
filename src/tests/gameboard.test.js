@@ -58,6 +58,14 @@ describe('class Gameboard', () => {
                 }
             });
         });
+        describe('Gameboard.getRandomCoordinate()', () => {
+            test('returned string is a valid Gameboard coordinate', () => {
+                for (let i = 0; i < 1000; ++i) {
+                    const coordinate = Gameboard.getRandomCoordinate();
+                    expect(Gameboard.isOutOfBounds(coordinate)).toBe(false);
+                }
+            });
+        })
     });
 
 

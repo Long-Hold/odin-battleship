@@ -30,6 +30,33 @@ export class Gameboard {
     }
 
     /**
+     * Generates a random, inclusive coordinate within the Gameboard bounds.
+     * 
+     * @returns {string} A randomly generated, inclusive coordinate.
+     */
+    static getRandomCoordinate() {
+        const randomChar = String.fromCharCode(
+            Math.floor(
+                Math.random() * (
+                    Gameboard.BOUNDS.COL.END 
+                    - Gameboard.BOUNDS.COL.START + 1
+                ) 
+                    + Gameboard.BOUNDS.COL.START
+            )
+        );
+
+        const randomNum = Math.floor(
+            Math.random() * (
+                Gameboard.BOUNDS.ROW.END 
+                - Gameboard.BOUNDS.ROW.START + 1
+            ) 
+                + Gameboard.BOUNDS.ROW.START
+        );
+
+        return `${randomChar}${randomNum}`;
+    }
+
+    /**
      * A Map() that stores Key: Values of the coordinate and it's linked ship in a 
      * <string, ship> fashion.
      * 

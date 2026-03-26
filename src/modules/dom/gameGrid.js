@@ -1,4 +1,17 @@
 import { Gameboard } from "../classes/gameboard";
+
+/**
+ * Stores the strings that are assigned to the game grid DOM elements.
+ * 
+ * These are exported so other modules can reference them, and allows a single source
+ * to control their names.
+ */
+export const GRID_IDS = {
+    PLAYER_ONE : 'player-one',
+    PLAYER_TWO: 'player-two',
+    COMPUTER: 'computer',
+}
+
 const [gridOne, gridTwo] = document.querySelectorAll('.game-grid');
 
 export function createGameGrid() {
@@ -22,6 +35,6 @@ export function createGameGrid() {
  * @param {boolean} hasComputerPlayer - Indicates if this is a Player vs Player or Player vs CPU game.
  */
 export function assignGameGridIDs(hasComputerPlayer = true) {
-    gridOne.id = 'player-one';
-    gridTwo.id = hasComputerPlayer ? 'computer' : 'player-two';
+    gridOne.id = GRID_IDS.PLAYER_ONE;
+    gridTwo.id = hasComputerPlayer ? GRID_IDS.COMPUTER : GRID_IDS.PLAYER_TWO;
 }

@@ -1,0 +1,55 @@
+For src/modules/classes/player.js
+
+COMPUTER SMART TARGETING — PSEUDOCODE
+======================================
+
+STATE (private, on Computer instance)
+--------------------------------------
+- followUpQueue   : ordered list of coordinates to try next
+- hitStreak       : list of consecutive hit coordinates (current ship)
+- lockedDirection : the axis direction once two hits are confirmed (or null)
+
+
+CHOOSE ATTACK
+--------------
+IF followUpQueue is empty
+    attack a random, unguessed coordinate
+
+ELSE
+    dequeue next coordinate from followUpQueue
+    attack that coordinate
+
+
+AFTER ATTACK RESOLVES
+----------------------
+IF miss
+    do nothing (queue may still have candidates from earlier hit)
+
+IF hit
+    add coordinate to hitStreak
+    
+    IF hitStreak length === 1 (first hit)
+        enqueue all 4 adjacent valid, unguessed coordinates
+
+    IF hitStreak length === 2 (direction now known)
+        determine axis from hitStreak[0] and hitStreak[1]
+        flush followUpQueue
+        enqueue only the two continuation coordinates along that axis
+        set lockedDirection
+
+    IF hitStreak length > 2
+        continue extending in lockedDirection
+        enqueue the next coordinate along that axis
+
+IF ship sunk (informed by Gameboard.receiveAttack or Game)
+    clear followUpQueue
+    clear hitStreak
+    set lockedDirection to null
+    resume random attacks
+
+
+EDGE CASES
+-----------
+- Before enqueuing any coordinate, verify it is in-bounds and not already guessed
+- When locked direction hits a miss (ran off ship end), 
+  reverse direction from hitStreak[0] and continue the other way

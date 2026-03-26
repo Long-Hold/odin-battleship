@@ -91,6 +91,14 @@ export class Gameboard {
         this.#guessedSpaces = new Set();
     }
 
+    get shipPlacements() {
+        return this.#shipPlacements;
+    }
+
+    get guessedSpaces() {
+        return this.#guessedSpaces;
+    }
+
     /**
      * Creates a ship object and links the coordinates it was placed on to that
      * ship object.

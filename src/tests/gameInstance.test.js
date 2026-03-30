@@ -104,4 +104,21 @@ describe('class Game', () => {
             });
         });
     });
+    describe('Game.getCurrentPlayer()', () => {
+        test('returns the expected Player object after each turn', () => {
+            const playerOne = game.playerOne.player;
+            const playerTwo = game.playerTwo.player;
+
+            expect(game.getCurrentPlayer()).toBe(playerOne);
+            expect(game.getCurrentPlayer()).not.toBe(playerTwo);
+
+            playerOne.gameBoard.recordPlacedAttack('A1');
+            expect(game.getCurrentPlayer()).not.toBe(playerOne);
+            expect(game.getCurrentPlayer()).toBe(playerTwo);
+
+            playerTwo.gameBoard.recordPlacedAttack('A1');
+            expect(game.getCurrentPlayer()).toBe(playerOne);
+            expect(game.getCurrentPlayer()).not.toBe(playerTwo);
+        });
+    });
 });

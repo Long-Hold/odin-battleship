@@ -43,4 +43,22 @@ export class Game {
             return this.playerOne.player.gameBoard.receiveAttack(coordinate);
         }
     }
+
+    /**
+     * Determines which Player's turn it is by comparing the amount of turns each Player has made.
+     * 
+     * If the turn count is equal for both Players, then it is Player 1's turn.
+     * Otherwise it is Player 2's turn.
+     * 
+     * @returns {object} The Player Object representing the current player.
+     */
+    getCurrentPlayer() {
+        const playerOneTurnCount = this.playerOne.player.gameBoard.guessedSpaces.size;
+        const playerTwoTurnCount = this.playerTwo.player.gameBoard.guessedSpaces.size;
+
+        if (playerOneTurnCount === playerTwoTurnCount)
+            return this.playerOne.player;
+        else
+            return this.playerTwo.player;
+    }
 }

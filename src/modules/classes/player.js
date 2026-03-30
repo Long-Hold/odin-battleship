@@ -51,3 +51,29 @@ export class Player {
         return this;
     }
 }
+
+export class Computer extends Player {
+    constructor() {
+        super();
+    }
+
+    /**
+     * Returns a random, un-played coordinate from the Gameboard.
+     * 
+     * This method can be used to get a guess from a Computer player when it's
+     * the computer's turn to make an automated move.
+     * 
+     * @returns {string} A randomly chosen, valid coordinate from the Gameboard.
+     */
+    getRandomAttack() {
+        while (true) {
+            const coordinate = Gameboard.getRandomCoordinate();
+
+            // Prevent returning an already guessed coordinate
+            if (this.gameBoard.guessedSpaces.has(coordinate))
+                continue;
+
+            else return coordinate;
+        }
+    }
+}

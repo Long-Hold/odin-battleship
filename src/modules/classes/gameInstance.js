@@ -15,27 +15,13 @@ export class Game {
      * Takes a coordinate string and has the attacking Player Class record the coordinate, and
      * the Player Class being attacked check if the coordinate has a ship on that space.
      * 
-     * The Player Class that is considered attacking is determined by comparing how many attacks
-     * each Player has made.
-     * 
-     * If both Players have the same amount of attacks made, then it is Player 1's turn.
-     * Otherwise, it is Player 2's turn.
-     * 
      * @param {string} coordinate - The coordinate of the opposing board to attack. 
      * @returns {boolean} True if a ship was hit. False if not.
      */
     handleAttack(coordinate) {
-        const playerOneTurnCount = this.playerOne.player.gameBoard.guessedSpaces.size;
-        const playerTwoTurnCount = this.playerTwo.player.gameBoard.guessedSpaces.size;
+        const currentPlayer = this.getCurrentPlayer();
 
-        /**
-         * The player that gets to make a turn can be determined by how many turns they have taken.
-         * 
-         * If both players have the same amount of turns, then player 1 places the next attack.
-         * Otherwise, player 2 goes.
-         */
-
-        if (playerOneTurnCount === playerTwoTurnCount) {
+        if (currentPlayer === this.playerOne.player) {
             this.playerOne.player.gameBoard.recordPlacedAttack(coordinate);
             return this.playerTwo.player.gameBoard.receiveAttack(coordinate);
         } else {

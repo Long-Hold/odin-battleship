@@ -17,8 +17,8 @@ function initializeGame() {
         playerOne, document.querySelector(`#${GRID_IDS.PLAYER_ONE}`), 
         playerTwo, document.querySelector(`#${GRID_IDS.COMPUTER}`)
     );
-    displayShips(game.playerOne.board, playerOne.gameBoard.shipPlacements);
-    displayShips(game.playerTwo.board, playerTwo.gameBoard.shipPlacements);
+    displayShips(game.playerOne.board, [...playerOne.gameBoard.shipPlacements.keys()]);
+    displayShips(game.playerTwo.board, [...playerTwo.gameBoard.shipPlacements.keys()]);
 }
 
 initializeGame();

@@ -38,3 +38,10 @@ export function assignGameGridIDs(hasComputerPlayer = true) {
     gridOne.id = GRID_IDS.PLAYER_ONE;
     gridTwo.id = hasComputerPlayer ? GRID_IDS.COMPUTER : GRID_IDS.PLAYER_TWO;
 }
+
+export function displayShips(gameBoard, shipPlacements) {
+    for (const [coord, ship] of shipPlacements) {
+        const coordElement = gameBoard.querySelector(`[data-coordinate="${coord}"]`);
+        coordElement.classList.add('has-ship');
+    }
+}

@@ -225,10 +225,14 @@ body {
   height: 100vh;
   /* Temporary background color */
   background-color: rgb(71, 66, 66);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  gap: 2rem;
 }
 
 #game-grids-container {
-  height: 100%;
+  height: fit-content;
   display: flex;
   gap: 1rem;
   place-content: center;

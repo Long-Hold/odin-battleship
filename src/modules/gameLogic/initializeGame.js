@@ -1,6 +1,6 @@
 import { Game } from "../classes/gameInstance";
 import { Computer, Player } from "../classes/player";
-import { assignGameGridIDs, createGameGrid, GRID_IDS } from "../dom/gameGrid";
+import { assignGameGridIDs, createGameGrid, GRID_IDS, initializeBoardListeners } from "../dom/gameGrid";
 
 /**
  * Initializes the UI DOM elements and internal objects required
@@ -30,6 +30,8 @@ export function initializeGame(hasComputerPlayer = true) {
         playerOne, playerOneBoard,
         playerTwo, playerTwoBoard
     );
+
+    initializeBoardListeners();
 
     return game;
 }

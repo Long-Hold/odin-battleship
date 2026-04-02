@@ -53,3 +53,18 @@ export function displayShips(gameBoard, shipPlacements) {
         coordElement.classList.add('has-ship');
     }
 }
+
+// TODO
+export function initializeBoardListeners() {
+    const gridsContainer = document.getElementById('game-grids-container');
+    gridsContainer.addEventListener('click', (event) => {
+        const parentId = event.target.parentElement.id;
+        if (
+            parentId !== GRID_IDS.PLAYER_ONE &&
+            parentId !== GRID_IDS.PLAYER_TWO &&
+            parentId !== GRID_IDS.COMPUTER
+        ) return;
+
+        console.log('TODO');
+    });
+}

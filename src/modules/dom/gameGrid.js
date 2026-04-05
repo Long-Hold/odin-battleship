@@ -15,6 +15,8 @@ export const GRID_IDS = {
 const [gridOne, gridTwo] = document.querySelectorAll('.game-grid');
 
 export function createGameGrid() {
+    gridOne.replaceChildren();
+    gridTwo.replaceChildren();
     for (let i = Gameboard.BOUNDS.ROW.START; i <= Gameboard.BOUNDS.ROW.END; ++i) {
         for (let j = Gameboard.BOUNDS.COL.START; j <= Gameboard.BOUNDS.COL.END; ++j) {
             const div = document.createElement('div');
@@ -53,7 +55,7 @@ export function displayShips(gameBoard, shipPlacements) {
     const occupiedCoords = gameBoard.querySelectorAll('.has-ship');
     for (let i = 0; i < occupiedCoords.length; ++i)
         occupiedCoords[i].classList.remove('has-ship');
-    
+
     for (let i = 0; i < shipPlacements.length; ++i) {
         const coord = shipPlacements[i];
         const coordElement = gameBoard.querySelector(`[data-coordinate="${coord}"]`);

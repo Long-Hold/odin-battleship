@@ -1,6 +1,8 @@
 import { Game } from "../classes/gameInstance";
 import { Computer, Player } from "../classes/player";
-import { assignGameGridIDs, createGameGrid, GRID_IDS, initializeBoardListeners } from "../dom/gameGrid";
+import { initializeButtonListeners } from "../dom/eventListeners";
+import { assignGameGridIDs, createGameGrid, displayShips, GRID_IDS, initializeBoardListeners} from "../dom/gameGrid";
+
 
 /**
  * Initializes the UI DOM elements and internal objects required
@@ -32,6 +34,20 @@ export function initializeGame(hasComputerPlayer = true) {
     );
 
     initializeBoardListeners();
+    initializeButtonListeners(
+        () => {
+            playerOne.randomizeShipPlacements();
+            playerTwo.randomizeShipPlacements();
+            displayShips(
+                game.playerOne.board,
+                [...playerOne.gameBoard.shipPlacements.keys()] 
+            );
+            displayShips(
+                game.playerTwo.board,
+                [...playerTwo.gameBoard.shipPlacements.keys()]
+            );
+        }
+    );
 
     return game;
 }

@@ -20,6 +20,8 @@ export class Player {
          * In that case, it just recalculates. This is a brute force approach, but
          * the size of the grid means this won't happen too often.
          */
+
+        this.gameBoard.reset();
         for (const [ship, length] of Ship.TYPES) {
             while (true) {
                 const coordinate = Gameboard.getRandomCoordinate();

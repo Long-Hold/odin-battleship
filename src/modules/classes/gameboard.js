@@ -197,4 +197,17 @@ export class Gameboard {
     allShipsSunk() {
         return [...this.#placedShips.values()].every((ship) => ship.isSunk() === true);
     }
+
+    /**
+     * Resets the class properties by clearing them of any data.
+     * 
+     * @returns {this} The Gameboard instance for chaining.
+     */
+    reset() {
+        this.#shipPlacements.clear();
+        this.#placedShips.clear();
+        this.#guessedSpaces.clear();
+
+        return this;
+    }
 }

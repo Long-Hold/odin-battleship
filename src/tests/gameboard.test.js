@@ -197,4 +197,17 @@ describe('class Gameboard', () => {
             expect(gameBoard.allShipsSunk()).toBe(true);
         });
     });
+
+    describe('Gameboard.reset()', () => {
+        test('clears all the class properties', () => {
+            gameBoard.placeShip(['A1','A2'], 'patrolboat');
+            gameBoard.placeShip(['J10', 'I10','H10'], 'Submarine');
+            gameBoard.placeShip(['J6', 'J7', 'J8'], 'DESTROYER');
+            gameBoard.placeShip(['A3','A4','A5','A6'], 'bAttleShip  ');
+            gameBoard.placeShip(['C8','D8','E8','F8','G8'], '  CarRier ');
+            expect(gameBoard.shipPlacements.size).not.toBe(0);
+            gameBoard.reset();
+            expect(gameBoard.shipPlacements.size).toBe(0);
+        });
+    });
 });

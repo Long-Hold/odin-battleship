@@ -1,7 +1,7 @@
 import { Game } from "../classes/gameInstance";
 import { Computer, Player } from "../classes/player";
-import { initializeButtonListeners } from "../dom/eventListeners";
-import { assignGameGridIDs, createGameGrid, displayShips, GRID_IDS, initializeBoardListeners} from "../dom/gameGrid";
+import { initializeButtonListeners, initializeBoardListeners } from "../dom/eventListeners";
+import { assignGameGridIDs, createGameGrid, displayShips, GRID_IDS} from "../dom/gameGrid";
 
 
 /**

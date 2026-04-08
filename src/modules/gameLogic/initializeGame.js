@@ -34,9 +34,17 @@ export function initializeGame(hasComputerPlayer = true) {
         playerTwo, playerTwoBoard
     );
 
+    return game;
+}
+
+/**
+ * Attaches event listeners to the buttons that control the game, and passes the
+ * respective functions that are called for each button.
+ * 
+ * @param {object} game - A Game object instance to manipulate an existing game. 
+ */
+export function initializeGameButtons(game) {
     initializeButtonListeners(
         () => randomizeShips(game, displayShips)
     );
-
-    return game;
 }

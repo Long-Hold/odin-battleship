@@ -33,7 +33,6 @@ export function initializeGame(hasComputerPlayer = true) {
         playerTwo, playerTwoBoard
     );
 
-    initializeBoardListeners();
     initializeButtonListeners(
         () => {
             playerOne.randomizeShipPlacements();

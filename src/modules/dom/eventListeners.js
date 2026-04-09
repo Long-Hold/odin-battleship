@@ -14,15 +14,17 @@ export function initializeButtonListeners(randomizeShips, startGame, playAgain) 
     });
 }
 
-// TODO
-export function initializeBoardListeners(onCellClick) {
+/**
+ * Returns a Promise that resolves with the dataset coordinate of the next clicked
+ * cell within the game grid container.
+ * 
+ * @returns {Promise<string>} The coordinate string of the clicked cell.
+ */
+export function waitForCoordClick() {
     const gridsContainer = document.getElementById('game-grids-container');
-    gridsContainer.addEventListener('click', (event) => {
-        const parentId = event.target.parentElement.id;
-
-        if (!Object.values(GRID_IDS).includes(parentId))
-            return;
-        
-        onCellClick(event.target.dataset.coordinate);
+    return new Promise((resolve) => {
+        gridsContainer.addEventListener('click', (event) => {
+            resolve(event.target.dataset.coordinate);
+        }, { once: true });
     });
 }

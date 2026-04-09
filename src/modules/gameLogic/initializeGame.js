@@ -1,6 +1,6 @@
 import { Game } from "../classes/gameInstance";
 import { Computer, Player } from "../classes/player";
-import { initializeBoardListeners, initializeButtonListeners } from "../dom/eventListeners";
+import { initializeButtonListeners, waitForCoordClick } from "../dom/eventListeners";
 import { assignGameGridIDs, createGameGrid, displayShips, GRID_IDS} from "../dom/gameGrid";
 import { randomizeShips } from "./gameUtils";
 import { runGame } from "./runGame";
@@ -48,8 +48,7 @@ export function initializeGameButtons(game) {
     initializeButtonListeners(
         () => randomizeShips(game, displayShips),
         () => {
-            initializeBoardListeners();
-            runGame(game);
+            runGame(game, waitForCoordClick);
         }
     );
 }

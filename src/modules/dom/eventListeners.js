@@ -1,5 +1,3 @@
-import { GRID_IDS } from "./gameGrid";
-
 export function initializeButtonListeners(randomizeShips, startGame, playAgain) {
     const gameButtons = document.getElementById('game-buttons');
 

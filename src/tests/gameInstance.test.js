@@ -72,6 +72,26 @@ describe('class Game', () => {
                 }
             }
         });
+        test('allows the player to retry if an error is thrown', () => {
+            const coord = 'A1';
+            // Player 1 making an attack
+            expect(() => game.handleAttack(coord)).not.toThrow();
+
+            // Player 2 making an attack
+            expect(() => game.handleAttack(coord)).not.toThrow();
+
+            // Player 1 now making a duplicate guess against player 2
+            expect(() => game.handleAttack(coord)).toThrow();
+
+            const newCoord = 'A2';
+
+            // This should be player 1 again making a new guess
+            expect(() => game.handleAttack(newCoord)).not.toThrow();
+            expect(game.playerOne.player.gameBoard.guessedSpaces.size).toBe(2);
+
+            // Player Two should only have the one guess
+            expect(game.playerTwo.player.gameBoard.guessedSpaces.size).toBe(1);
+        });
         describe('when passing occupied coordinates', () => {
             let occupiedCoords;
             beforeEach(() => {

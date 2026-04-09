@@ -15,7 +15,7 @@ export function initializeButtonListeners(randomizeShips, startGame, playAgain) 
 }
 
 // TODO
-export function initializeBoardListeners() {
+export function initializeBoardListeners(onCellClick) {
     const gridsContainer = document.getElementById('game-grids-container');
     gridsContainer.addEventListener('click', (event) => {
         const parentId = event.target.parentElement.id;
@@ -23,6 +23,6 @@ export function initializeBoardListeners() {
         if (!Object.values(GRID_IDS).includes(parentId))
             return;
         
-        console.log('TODO');
+        onCellClick(event.target.dataset.coordinate);
     });
 }

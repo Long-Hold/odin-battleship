@@ -1,3 +1,4 @@
+import { showPlayAgainButton } from "../dom/gameButtons";
 import { swapBoardLock } from "../dom/gameGrid";
 
 export async function runGame(game, coordinateRetriever) {
@@ -33,4 +34,5 @@ export async function runGame(game, coordinateRetriever) {
             break;
         }
     }
+    showPlayAgainButton();
 }

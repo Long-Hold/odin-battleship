@@ -1,12 +1,18 @@
+import { hideAllButtons, showStartGameButton } from "./gameButtons";
+
 export function initializeButtonListeners(randomizeShips, startGame, playAgain) {
     const gameButtons = document.getElementById('game-buttons');
 
     gameButtons.addEventListener('click', (event) => {
         const buttonType = event.target.id;
-        if (buttonType === 'randomize-ships')
+        if (buttonType === 'randomize-ships') {
             randomizeShips();
-        if (buttonType === 'start-game')
+            showStartGameButton();
+        }
+        if (buttonType === 'start-game') {
+            hideAllButtons();
             startGame();
+        }
         if (buttonType === 'play-again')
             playAgain();
     });

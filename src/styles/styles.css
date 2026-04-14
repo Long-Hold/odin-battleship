@@ -289,3 +289,7 @@ GAME BUTTONS
     height: 2rem;
   }
 }
+
+.game-button.hidden {
+  visibility: hidden;
+}

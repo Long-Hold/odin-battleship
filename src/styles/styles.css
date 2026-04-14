@@ -267,6 +267,11 @@ body {
   }
 }
 
+/* Locks a game grid to prevent user interaction */
+.game-grid.locked {
+  pointer-events: none;
+}
+
 /* 
 ===== 
 GAME BUTTONS

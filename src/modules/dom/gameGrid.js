@@ -62,3 +62,15 @@ export function displayShips(gameBoard, shipPlacements) {
         coordElement.classList.add('has-ship');
     }
 }
+
+/**
+ * Locks a gameboard to prevent user interaction, while unlocking the other one.
+ * This is done by assigning / removing a custom class from the passed elements.
+ * 
+ * @param {HTMLElement} boardToLock - The game grid element to lock.
+ * @param {HTMLElement} boardToUnlock - The game grid element to unlock.
+ */
+export function swapBoardLock(boardToLock, boardToUnlock) {
+    boardToLock.classList.add('locked');
+    boardToUnlock.classList.remove('locked');
+}

@@ -47,8 +47,7 @@ export function initializeGame(hasComputerPlayer = true) {
 export function initializeGameButtons(game) {
     initializeButtonListeners(
         () => randomizeShips(game, displayShips),
-        () => {
-            runGame(game, waitForCoordClick);
-        }
+        () => runGame(game, waitForCoordClick),
+        () => window.location.reload(),
     );
 }

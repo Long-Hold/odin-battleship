@@ -10,12 +10,13 @@ export async function runGame(game, coordinateRetriever) {
         try {
             game.handleAttack(coord);
         } catch (error) {
-            console.log('invalid');
+            console.error(error);
             continue;
         }
 
         if (playerOne.gameBoard.allShipsSunk() || playerTwo.gameBoard.allShipsSunk()) {
-            alert('Game over! Loser:', playerOne.gameBoard.allShipsSunk() ? playerOne : playerTwo);
+            const losingPlayer = playerOne.gameBoard.allShipsSunk() ? 'Player One' : 'Player Two';
+            alert(`Game over! Loser: ${losingPlayer}`);
             break;
         }
     }

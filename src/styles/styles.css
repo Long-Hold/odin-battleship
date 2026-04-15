@@ -222,13 +222,18 @@ MY STYLES BELOW THIS LINE
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   /* Temporary background color */
   background-color: rgb(71, 66, 66);
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   gap: 2rem;
+}
+
+header {
+  place-items: center;
+  padding: 1rem;
 }
 
 #game-grids-container {

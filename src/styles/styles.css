@@ -223,12 +223,21 @@ MY STYLES BELOW THIS LINE
 
 body {
   min-height: 100vh;
-  /* Temporary background color */
-  background-color: rgb(71, 66, 66);
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   gap: 2rem;
+}
+
+/* Pseudo-element prevents iOS and mobile performance hits */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url('../images/world_map.webp');
+  background-size: cover;
+  background-position: center;
 }
 
 header {

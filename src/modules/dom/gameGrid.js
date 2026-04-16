@@ -14,18 +14,49 @@ export const GRID_IDS = {
 
 const [gridOne, gridTwo] = document.querySelectorAll('.game-grid');
 
+/**
+ * Constructs the HTML Elements that represent an interactable game grid.
+ * 
+ * Construction includes:
+ * 1. The Letter and Number coordinate bars
+ * 2. The interactable grid squares.
+ */
 export function createGameGrid() {
-    const [squaresOne, squaresTwo] = document.querySelectorAll('.grid-squares')
-    squaresOne.replaceChildren();
-    squaresTwo.replaceChildren();
-    for (let i = Gameboard.BOUNDS.ROW.START; i <= Gameboard.BOUNDS.ROW.END; ++i) {
-        for (let j = Gameboard.BOUNDS.COL.START; j <= Gameboard.BOUNDS.COL.END; ++j) {
+    function createGridCoordinates() {
+        const [lettersOne, lettersTwo] = document.querySelectorAll('.grid-letters');
+        const [numbersOne, numbersTwo] = document.querySelectorAll('.grid-numbers');
+
+        for (let letter = Gameboard.BOUNDS.COL.START; letter <= Gameboard.BOUNDS.COL.END; ++letter) {
             const div = document.createElement('div');
-            div.dataset.coordinate = `${String.fromCharCode(j)}${i}`;
-            squaresOne.appendChild(div.cloneNode(true));
-            squaresTwo.appendChild(div.cloneNode(true));
+            div.dataset.letter = String.fromCharCode(letter);
+            div.textContent = String.fromCharCode(letter);
+            lettersOne.appendChild(div.cloneNode(true));
+            lettersTwo.appendChild(div.cloneNode(true));
+        }
+
+        for (let number = Gameboard.BOUNDS.ROW.START; number <= Gameboard.BOUNDS.ROW.END; ++number) {
+            const div = document.createElement('div');
+            div.dataset.number = number;
+            div.textContent = number;
+            numbersOne.appendChild(div.cloneNode(true));
+            numbersTwo.appendChild(div.cloneNode(true));
         }
     }
+    function createGridSpaces() {
+        const [squaresOne, squaresTwo] = document.querySelectorAll('.grid-squares')
+        squaresOne.replaceChildren();
+        squaresTwo.replaceChildren();
+        for (let i = Gameboard.BOUNDS.ROW.START; i <= Gameboard.BOUNDS.ROW.END; ++i) {
+            for (let j = Gameboard.BOUNDS.COL.START; j <= Gameboard.BOUNDS.COL.END; ++j) {
+                const div = document.createElement('div');
+                div.dataset.coordinate = `${String.fromCharCode(j)}${i}`;
+                squaresOne.appendChild(div.cloneNode(true));
+                squaresTwo.appendChild(div.cloneNode(true));
+            }
+        }
+    }
+    createGridCoordinates();
+    createGridSpaces();
 }
 
 /**

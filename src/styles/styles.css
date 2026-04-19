@@ -235,7 +235,7 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url('../images/futuristic_ocean.webp');
+  /* background-image: url('../images/world.200408.3x5400x2700.jpg'); */
   background-size: cover;
   background-position: center;
 }

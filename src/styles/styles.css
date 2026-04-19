@@ -227,6 +227,8 @@ body {
   flex-flow: column nowrap;
   justify-content: center;
   gap: 2rem;
+
+  background-color: #007B99;
 }
 
 /* Pseudo-element prevents iOS and mobile performance hits */

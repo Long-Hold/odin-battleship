@@ -227,8 +227,6 @@ body {
   flex-flow: column nowrap;
   justify-content: center;
   gap: 2rem;
-
-  background-color: #007B99;
 }
 
 /* Pseudo-element prevents iOS and mobile performance hits */
@@ -237,9 +235,10 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  /* background-image: url('../images/world.200408.3x5400x2700.jpg'); */
+  background-image: url('../images/stormy_ocean.svg');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 header {

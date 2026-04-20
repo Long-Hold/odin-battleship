@@ -221,6 +221,11 @@ MY STYLES BELOW THIS LINE
   padding: 0;
 }
 
+:root {
+  --friendly-green: rgb(0, 255, 0);
+  --enemy-red: rgb(255, 0, 0);
+}
+
 body {
   min-height: 100vh;
   display: flex;
@@ -266,9 +271,15 @@ header {
   grid-template-columns: auto 1fr 1fr;
   grid-auto-rows: auto;
   grid-template-areas: 
+    "label label label"
     "dummy letters letters"
     "numbers squares squares";
 
+  h2 {
+    grid-area: label;
+    text-align: right;
+  }
+  
   .grid-numbers {
     grid-area: numbers;
   }
@@ -277,6 +288,13 @@ header {
   }
   .grid-squares {
     grid-area: squares;
+  }
+
+  &:first-of-type h2 {
+    color: var(--friendly-green);
+  }
+  &:nth-of-type(2) h2 {
+    color: var(--enemy-red);
   }
 }
 

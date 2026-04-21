@@ -285,7 +285,7 @@ header {
     grid-area: numbers;
   }
   .grid-letters {
-    grid-area: letters
+    grid-area: letters;
   }
   .grid-squares {
     grid-area: squares;

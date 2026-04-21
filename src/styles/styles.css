@@ -255,7 +255,7 @@ header {
 #game-grids-container {
   height: fit-content;
   display: flex;
-  align-items: center;
+  place-content: center;
   flex-flow: row wrap;
 
   width: clamp(300px, 100%, 1200px);
@@ -301,29 +301,19 @@ header {
 
 .grid-letters {
   width: 100%;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
 
-  div {
-    width: 100%;
-    text-align: center;
-  }
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  place-items: center;
 }
 
 .grid-numbers {
   width: fit-content;
   height: 100%;
 
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-evenly;
-
-  div {
-    height: 100%;
-    place-content: center;
-    text-align: center;
-  }
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  place-items: center;
 }
 
 .grid-letters,
@@ -332,12 +322,12 @@ header {
 }
 
 .grid-squares {
-  aspect-ratio: 1/1;
   display: grid;
   grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
 
   div {
+    aspect-ratio: 1/1;
     background-color: rgba(255, 255, 255, 0.304);
     outline: 1px solid;
   }

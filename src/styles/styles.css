@@ -233,6 +233,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  padding: 0.2rem 0.5rem;
 }
 
 /* Pseudo-element prevents iOS and mobile performance hits */
@@ -257,13 +258,13 @@ header {
   display: flex;
   place-content: center;
   flex-flow: row wrap;
+  gap: 0.5rem;
 
   width: clamp(300px, 100%, 1200px);
 }
 
 .game-grid {
-  padding: 0.8rem;
-  margin: 0.5rem;
+  padding: 0.2rem 0.8rem;
   background-color: rgba(0, 0, 0, 0.75);
   border-radius: 10px;
 

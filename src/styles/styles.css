@@ -289,6 +289,29 @@ header {
   }
 }
 
+.game-grid .grid-plane {
+  min-width: 100%;
+  aspect-ratio: 1/1;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: 
+    "dummy letters"
+    "numbers squares";
+  
+  .grid-letters {
+    grid-area: letters;
+    height: fit-content;
+  }
+  .grid-numbers {
+    grid-area: numbers;
+    width: fit-content;
+  }
+  .grid-squares {
+    grid-area: squares;
+  }
+}
+
 .grid-letters {
   width: 100%;
 
@@ -317,7 +340,6 @@ header {
   grid-template-columns: repeat(10, 1fr);
 
   div {
-    aspect-ratio: 1/1;
     background-color: rgba(255, 255, 255, 0.304);
     outline: 1px solid;
   }

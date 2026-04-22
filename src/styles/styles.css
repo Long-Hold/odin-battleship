@@ -224,6 +224,8 @@ MY STYLES BELOW THIS LINE
 :root {
   --friendly-green: rgb(0, 255, 0);
   --enemy-red: rgb(255, 0, 0);
+  --universal-radius: 10px;
+  --universal-shadow: 4px 4px 5px black;
 }
 
 body {
@@ -266,7 +268,8 @@ header {
 .game-grid {
   padding: 0.6rem 0.8rem;
   background-color: rgba(0, 0, 0, 0.75);
-  border-radius: 10px;
+  border-radius: var(--universal-radius);
+  box-shadow: var(--universal-shadow);
 
   flex: 1 1 300px;
   display: flex;
@@ -370,14 +373,31 @@ GAME BUTTONS
 */
 
 #game-buttons {
+  width: 100%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   gap: 0.5rem;
 
   .game-button {
-    width: 50%;
+    color: white;
+    width: 300px;
     height: 2rem;
+    border: 1px solid rgb(80, 80, 80);
+    box-shadow: var(--universal-shadow);
+    border-radius: var(--universal-radius);
+    background-color: rgba(0, 0, 0, 0.75);
+    transition: 0.4s;
+  }
+
+  .game-button:focus-visible,
+  .game-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    border-color: rgb(0, 255, 8);
+  }
+  .game-button:active {
+    background-color: rgb(45, 144, 48);
   }
 }
 

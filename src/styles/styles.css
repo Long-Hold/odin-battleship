@@ -269,27 +269,16 @@ header {
   border-radius: 10px;
 
   flex: 1 1 300px;
-  display: grid;
-  grid-template-columns: auto 1fr 1fr;
-  grid-auto-rows: auto;
-  grid-template-areas: 
-    "label label label"
-    "dummy letters letters"
-    "numbers squares squares";
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 
-  h2 {
-    grid-area: label;
-    text-align: center;
-  }
-  
-  .grid-numbers {
-    grid-area: numbers;
-  }
-  .grid-letters {
-    grid-area: letters;
-  }
-  .grid-squares {
-    grid-area: squares;
+  text-align: center;
+
+  > * {
+    width: 100%;
   }
 
   &:first-of-type h2 {

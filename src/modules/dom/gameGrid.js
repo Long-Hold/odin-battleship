@@ -106,3 +106,17 @@ export function swapBoardLock(boardToLock, boardToUnlock) {
     boardToLock.classList.add('locked');
     boardToUnlock.classList.remove('locked');
 }
+
+/**
+ * Adds a class to a single grid square. The class applied depends if the square
+ * is a hit or miss.
+ * 
+ * @param {HTMLElement} board - The opponent's board to add an icon to
+ * @param {string} coord - The coordinate of the square to add an icon to
+ * @param {boolean} isHit - The result of the attack to determine which icon is used
+ */
+export function setGridSquareStatus(board, coord, isHit) {
+    const gridSquare = board.querySelector(`[data-coordinate="${coord}"]`);
+
+    gridSquare.classList.add(isHit ? 'hit' : 'miss');
+}

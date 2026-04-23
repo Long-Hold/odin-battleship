@@ -1,5 +1,5 @@
 import { showPlayAgainButton } from "../dom/gameButtons";
-import { swapBoardLock } from "../dom/gameGrid";
+import { setGridSquareStatus, swapBoardLock } from "../dom/gameGrid";
 
 export async function runGame(game, coordinateRetriever) {
     const playerOne = game.playerOne.player;
@@ -21,12 +21,15 @@ export async function runGame(game, coordinateRetriever) {
         const coord = await coordinateRetriever();
         console.log(coord);
 
+        let attackResult = null;
         try {
-            game.handleAttack(coord);
+            attackResult = game.handleAttack(coord);
         } catch (error) {
             console.error(error);
             continue;
         }
+
+        setGridSquareStatus(opponent.board, coord, attackResult);
 
         if (playerOne.gameBoard.allShipsSunk() || playerTwo.gameBoard.allShipsSunk()) {
             const losingPlayer = playerOne.gameBoard.allShipsSunk() ? 'Player One' : 'Player Two';

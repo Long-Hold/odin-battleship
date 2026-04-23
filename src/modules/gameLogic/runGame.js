@@ -17,9 +17,11 @@ export async function runGame(game, coordinateRetriever) {
         : [game.playerTwo, game.playerOne];
         swapBoardLock(current.board, opponent.board);
 
-        console.log('waiting for click...');
-        const coord = await coordinateRetriever();
-        console.log(coord);
+        let coord = null;
+        if (game.getCurrentPlayer() === playerOne)
+            coord = await coordinateRetriever();
+        else
+            coord = playerTwo.getRandomAttack();
 
         let attackResult = null;
         try {

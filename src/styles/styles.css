@@ -404,3 +404,20 @@ GAME BUTTONS
 .game-button.hidden {
   visibility: hidden;
 }
+
+/* 
+===== 
+HIT / MISS ICONS
+=====
+*/
+
+.grid-squares {
+  div[data-status="hit"] {
+    background-image: url("../images/hit_explosion.svg");
+    background-color: rgba(140, 20, 20, 0.85);
+  }
+  div[data-status="miss"] {
+    background-image: url("../images/miss_splash.svg");
+    background-color: rgba(10, 40, 80, 0.85);
+  }
+}

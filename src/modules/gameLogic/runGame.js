@@ -5,6 +5,7 @@ export async function runGame(game, coordinateRetriever) {
     const playerOne = game.playerOne.player;
     const playerTwo = game.playerTwo.player;
 
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     while (true) {
         /**
          * Locks the board of the current player, and unlocks the opponent player's
@@ -20,8 +21,10 @@ export async function runGame(game, coordinateRetriever) {
         let coord = null;
         if (game.getCurrentPlayer() === playerOne)
             coord = await coordinateRetriever();
-        else
+        else {
+            await sleep(500);
             coord = playerTwo.getRandomAttack();
+        }
 
         let attackResult = null;
         try {

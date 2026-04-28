@@ -286,14 +286,14 @@ INTRO LOADING SCREEN
 }
 
 header {
-  z-index: 10000;
   position: fixed;
   inset: 0;
   background: linear-gradient(black, gray);
 
   display: flex;
   flex-flow: column nowrap;
-  place-content: center;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
 
   img {

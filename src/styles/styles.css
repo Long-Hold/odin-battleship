@@ -297,7 +297,7 @@ header {
   gap: 1rem;
 
   img {
-    width: 100%;
+    width: max(50%, 300px);
   }
 
   img, button {

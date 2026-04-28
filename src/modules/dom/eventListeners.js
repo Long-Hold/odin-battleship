@@ -32,3 +32,25 @@ export function waitForCoordClick() {
         }, { once: true });
     });
 }
+
+/**
+ * Attaches a one-time click listener to the intro screen button.
+ * Removes the intro screen from the DOM when clicked.
+ *
+ * @returns {Promise<void>} Resolves when the intro button is clicked.
+ */
+export function waitForIntroClick() {
+    const introButton = document.querySelector('header').querySelector('button');
+    return new Promise((resolve) => {
+        introButton.addEventListener('click', (event) => {
+            const header = event.target.parentElement;
+
+            header.classList.add('fade-out');
+            header.addEventListener('animationend', () => {
+                header.remove();
+                resolve();
+            }, {once: true});
+
+        }, { once: true});
+    });
+}

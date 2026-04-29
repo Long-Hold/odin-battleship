@@ -214,6 +214,18 @@ MY STYLES BELOW THIS LINE
 =====
  */
 
+/* Fade in animation for the logo upon page load */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Fade out animation for the logo and button upon a button click */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 *,
 *::before,
 *::after {
@@ -278,18 +290,6 @@ button {
 INTRO LOADING SCREEN
 =====
  */
-
-/* Fade in animation for the logo upon page load */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Fade out animation for the logo and button upon a button click */
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
 
 header {
   position: fixed;

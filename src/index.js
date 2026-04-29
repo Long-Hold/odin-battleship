@@ -3,7 +3,7 @@ import { initializeGame, initializeGameButtons } from "./modules/gameLogic/initi
 import "./styles/styles.css";
 
 async function start() {
-    await waitForIntroClick();
+    // await waitForIntroClick();
     const game = initializeGame();
     initializeGameButtons(game);
 }

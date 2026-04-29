@@ -243,6 +243,9 @@ MY STYLES BELOW THIS LINE
   --enemy-red: rgb(255, 0, 0);
   --universal-radius: 10px;
   --universal-shadow: 4px 4px 5px black;
+
+  --fadeInAnimation: fadeIn 1.5s ease-in forwards;
+  --fadeOutAnimation: fadeOut 1.5s ease-out forwards;
   --game-over-stampIn: stampIn 0.5s ease-in ;
 }
 
@@ -313,12 +316,12 @@ header {
   }
 
   img, button {
-    animation: fadeIn 2s ease-in forwards;
+    animation: var(--fadeInAnimation);
   }
 }
 
 header.fade-out {
-  animation: fadeOut 2s ease-out forwards;
+  animation: var(--fadeOutAnimation);
 }
 
 /*

@@ -226,6 +226,11 @@ MY STYLES BELOW THIS LINE
   to { opacity: 0; }
 }
 
+@keyframes stampIn {
+  from { scale: 3; opacity:0; }
+  to { scale:1; opacity:1; }
+}
+
 *,
 *::before,
 *::after {
@@ -238,6 +243,7 @@ MY STYLES BELOW THIS LINE
   --enemy-red: rgb(255, 0, 0);
   --universal-radius: 10px;
   --universal-shadow: 4px 4px 5px black;
+  --game-over-stampIn: stampIn 0.5s ease-in ;
 }
 
 body {
@@ -479,6 +485,7 @@ VICTORY / DEFEAT MESSAGES
 
 .game-over-msg {
   width: 100%;
+  animation: var(--game-over-stampIn);
   &.victory {
     color: var(--friendly-green);
   }

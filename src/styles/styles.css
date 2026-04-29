@@ -466,3 +466,23 @@ HIT / MISS ICONS
     background-color: rgba(10, 40, 80, 0.85);
   }
 }
+
+/* 
+=====
+VICTORY / DEFEAT MESSAGES
+===== 
+*/
+
+/* .game-over-msg.hidden {
+  display: none;
+} */
+
+.game-over-msg {
+  width: 100%;
+  &.victory {
+    color: var(--friendly-green);
+  }
+  &.defeat {
+    color: var(--enemy-red);
+  }
+}

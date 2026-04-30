@@ -448,6 +448,7 @@ Visual indicators for which boards can be interacted with
 }
 
 .grid-squares {
+  cursor:pointer;
   display: grid;
   grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
@@ -472,9 +473,11 @@ Visual indicators for which boards can be interacted with
 
 /* Locks a game grid to prevent user interaction */
 .game-grid.locked {
-  pointer-events: none;
+  cursor:not-allowed;
+  .grid-squares {
+    pointer-events: none;
+  }
 }
-
 /* 
 ===== 
 GAME BUTTONS

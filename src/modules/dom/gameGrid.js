@@ -108,6 +108,14 @@ export function swapBoardLock(boardToLock, boardToUnlock) {
 }
 
 /**
+ * Locks the game grids to prevent user interaction with them.
+ */
+export function lockGameBoards() {
+    gridOne.classList.add('locked');
+    gridTwo.classList.add('locked');
+}
+
+/**
  * Adds a class to a single grid square. The class applied depends if the square
  * is a hit or miss.
  * 

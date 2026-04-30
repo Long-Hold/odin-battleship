@@ -1,5 +1,5 @@
 import { showPlayAgainButton } from "../dom/gameButtons";
-import { setGridSquareStatus, showEndGameScreen, swapBoardLock } from "../dom/gameGrid";
+import { lockGameBoards, setGridSquareStatus, showEndGameScreen, swapBoardLock } from "../dom/gameGrid";
 
 export async function runGame(game, coordinateRetriever) {
     const playerOne = game.playerOne.player;
@@ -41,6 +41,7 @@ export async function runGame(game, coordinateRetriever) {
          * on each board respectively.
          */
         if (playerOne.gameBoard.allShipsSunk() || playerTwo.gameBoard.allShipsSunk()) {
+            lockGameBoards();
             const [winningBoard, losingBoard] = playerOne.gameBoard.allShipsSunk()
             ? [game.playerTwo.board, game.playerOne.board]
             : [game.playerOne.board, game.playerTwo.board];  

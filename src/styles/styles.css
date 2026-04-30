@@ -255,7 +255,7 @@ body {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   padding: 0.2rem 0.5rem;
 }
 
@@ -456,7 +456,7 @@ GAME BUTTONS
 }
 
 .game-button.hidden {
-  visibility: hidden;
+  display: none;
 }
 
 /* 

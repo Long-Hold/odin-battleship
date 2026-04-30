@@ -340,6 +340,24 @@ GAME GRID STYLES
   width: clamp(300px, 100%, 1200px);
 }
 
+/*
+Stops the boards from overflowing on both axis
+on smaller screens 
+ */
+@media screen and (max-width: 430px) {
+  #game-grids-container {
+    width: 300px;
+  }
+}
+
+
+@media screen and (max-width: 900px) and (orientation: landscape) {
+  #game-grids-container {
+    flex-flow: row nowrap;
+    max-width: 70%;
+  }
+}
+
 .game-grid {
   padding: 0.6rem 0.8rem;
   background-color: rgba(0, 0, 0, 0.75);

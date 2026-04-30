@@ -482,9 +482,9 @@ VICTORY / DEFEAT MESSAGES
 ===== 
 */
 
-/* .game-over-msg.hidden {
+.game-over-msg.hidden {
   display: none;
-} */
+}
 
 .game-over-msg {
   width: 100%;

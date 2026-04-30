@@ -1,5 +1,5 @@
 import { showPlayAgainButton } from "../dom/gameButtons";
-import { setGridSquareStatus, swapBoardLock } from "../dom/gameGrid";
+import { setGridSquareStatus, showEndGameScreen, swapBoardLock } from "../dom/gameGrid";
 
 export async function runGame(game, coordinateRetriever) {
     const playerOne = game.playerOne.player;
@@ -36,9 +36,16 @@ export async function runGame(game, coordinateRetriever) {
 
         setGridSquareStatus(opponent.board, coord, attackResult);
 
+        /**
+         * Gets the board of the players on the DOM and show the winner / loser message
+         * on each board respectively.
+         */
         if (playerOne.gameBoard.allShipsSunk() || playerTwo.gameBoard.allShipsSunk()) {
-            const losingPlayer = playerOne.gameBoard.allShipsSunk() ? 'Player One' : 'Player Two';
-            alert(`Game over! Loser: ${losingPlayer}`);
+            const [winningBoard, losingBoard] = playerOne.gameBoard.allShipsSunk()
+            ? [game.playerTwo.board, game.playerOne.board]
+            : [game.playerOne.board, game.playerTwo.board];  
+
+            showEndGameScreen(winningBoard, losingBoard);
             break;
         }
     }

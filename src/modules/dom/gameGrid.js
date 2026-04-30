@@ -120,3 +120,16 @@ export function setGridSquareStatus(board, coord, isHit) {
 
     gridSquare.classList.add(isHit ? 'hit' : 'miss');
 }
+
+/**
+ * Removes the .hidden class from the end game messages for both players.
+ * The winnerBoard has it's .victory message revealed.
+ * The loserBoard has it's .defeat message revealed.
+ * 
+ * @param {HTMLElement} winnerBoard - The HTML element game board of the winning player
+ * @param {HTMLElement} loserBoard - The HTML element game board of the defeated player
+ */
+export function showEndGameScreen(winnerBoard, loserBoard) {
+    winnerBoard.querySelector('.victory').classList.remove('hidden');
+    loserBoard.querySelector('.defeat').classList.remove('hidden');
+}

@@ -496,3 +496,22 @@ VICTORY / DEFEAT MESSAGES
     color: var(--enemy-red);
   }
 }
+
+.game-grid:has(.victory:not(.hidden)) {
+  box-shadow: 2px 2px 2px var(--friendly-green);
+  transition: box-shadow 1s ease;
+  .grid-squares {
+    border: 2px solid transparent;
+    border-color: var(--friendly-green);
+    transition: border-color 1s ease;
+  }
+}
+.game-grid:has(.defeat:not(.hidden)) {
+  box-shadow: 2px 2px 2px var(--enemy-red);
+  transition: box-shadow 1s ease;
+  .grid-squares {
+    border: 2px solid transparent;
+    border-color: var(--enemy-red);
+    transition: border-color 1s ease;
+  }
+}

@@ -19,11 +19,13 @@ export function randomizeShips(game, renderFunction) {
 
     renderFunction(
         playerOneBoard,
-        [...playerOne.gameBoard.shipPlacements.keys()]
+        playerOne.gameBoard.shipPlacements,
+        playerOne.gameBoard.shipAxis
     );
 
     renderFunction(
         playerTwoBoard,
-        [...playerTwo.gameBoard.shipPlacements.keys()]
+        playerTwo.gameBoard.shipPlacements,
+        playerTwo.gameBoard.shipAxis
     );
 }

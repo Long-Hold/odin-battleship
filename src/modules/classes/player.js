@@ -43,6 +43,7 @@ export class Player {
 
                 try {
                     this.gameBoard.placeShip(coordRange, ship);
+                    this.gameBoard.recordShipAxis(ship, randomAxis);
                     break;
                 } catch {
                     // Swallow errors and recalculate

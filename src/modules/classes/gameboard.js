@@ -14,6 +14,15 @@ export class Gameboard {
     }
 
     /**
+     * Provides a standard way to define axis labelling.
+     * Can be used to signal the direction an object is facing, 
+     */
+    static AXIS = {
+        COL: 'LETTER',
+        ROW: 'NUMBER'
+    }
+
+    /**
      * Compares the coordinate string against a regex pattern.
      * Coordinates should only ever have 1 letter between and including the letters
      * 'A' to 'J', and the a value between and including '1' to '1o'.
@@ -149,6 +158,24 @@ export class Gameboard {
 
         for (const coordinate of normalizedCoords)
             this.#shipPlacements.set(coordinate, ship);
+
+        return this;
+    }
+
+    /**
+     * Links a ship object to the direction it is facing on the board.
+     * 
+     * @param {string} shipType - The name of the ship
+     * @param {number | string} direction - The direction the ship is facing
+     * @returns 
+     */
+    recordShipAxis(shipType, direction) {
+        const ship = this.#placedShips.get(shipType);
+
+        if (Number.isInteger(direction))
+            this.#shipAxis.set(ship, Gameboard.AXIS.ROW);
+        else
+            this.shipAxis.set(ship, Gameboard.AXIS.COL);
 
         return this;
     }

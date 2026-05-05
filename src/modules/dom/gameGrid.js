@@ -74,14 +74,12 @@ export function assignGameGridIDs(hasComputerPlayer = true) {
 }
 
 /**
- * Assigns a class to each coordinate occupied by a ship. This class
- * makes the square visible to represent a ship is present there.
- * 
- * Before displaying the ships, any coordinate marked as occupied will first have
- * it removed from it's class list.
+ * Creates an img element of each ship type, resizes them, and overlays them onto
+ * their grid positions.
  * 
  * @param {HTMLElement} gameBoard - The element that represents the Gameboard. 
- * @param {string[]} shipPlacements - An array of coordinates.
+ * @param {Map<string, import('../classes/ship').Ship} shipPlacements - An array of coordinates.
+ * @param {Map<import('../classes/ship').Ship, string} shipAxis - A map that links a Ship object to the direction it faces. 
  */
 export async function displayShips(gameBoard, shipPlacements, shipAxis) {
     const occupiedCoords = gameBoard.querySelectorAll('.has-ship');

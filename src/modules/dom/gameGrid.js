@@ -82,11 +82,10 @@ export function assignGameGridIDs(hasComputerPlayer = true) {
  * @param {Map<import('../classes/ship').Ship, string} shipAxis - A map that links a Ship object to the direction it faces. 
  */
 export async function displayShips(gameBoard, shipPlacements, shipAxis) {
-    const occupiedCoords = gameBoard.querySelectorAll('.has-ship');
-    for (let i = 0; i < occupiedCoords.length; ++i)
-        occupiedCoords[i].classList.remove('has-ship');
+    const shipSprites = gameBoard.querySelectorAll('.ship-sprite');
+    for (let i = 0; i < shipSprites.length; ++i)
+        shipSprites[i].remove();
 
-    // const coordElement = gameBoard.querySelector(`[data-coordinate="${coord}"]`);
     const gridSquares = gameBoard.querySelector('.grid-squares');
     const gridRec = gridSquares.getBoundingClientRect();
     let currentShip = null;
@@ -102,7 +101,7 @@ export async function displayShips(gameBoard, shipPlacements, shipAxis) {
         const boatSprite = await import(`../../images/sprites/${currentShip}.svg`);
         const img = document.createElement('img');
         img.src = boatSprite.default;
-        img.classList.add(currentShip);
+        img.classList.add('ship-sprite');
         gridSquares.appendChild(img);
 
         const left = coordRec.left - gridRec.left;

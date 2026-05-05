@@ -554,11 +554,7 @@ VICTORY / DEFEAT MESSAGES
   }
 }
 
-.battleship,
-.carrier,
-.destroyer,
-.patrolboat,
-.submarine {
+.ship-sprite {
   position: absolute;
   pointer-events: none;
   width: fit-content;

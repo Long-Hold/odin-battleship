@@ -85,10 +85,16 @@ export class Gameboard {
      */
     #guessedSpaces;
 
+    /**
+     * A map that stores the ship object as the key, and the axis direction as the value.
+     */
+    #shipAxis;
+
     constructor() {
         this.#shipPlacements = new Map();
         this.#placedShips = new Map();
         this.#guessedSpaces = new Set();
+        this.#shipAxis = new Map();
     }
 
     get shipPlacements() {
@@ -97,6 +103,10 @@ export class Gameboard {
 
     get guessedSpaces() {
         return this.#guessedSpaces;
+    }
+
+    get shipAxis() {
+        return this.#shipAxis;
     }
 
     /**
@@ -207,6 +217,7 @@ export class Gameboard {
         this.#shipPlacements.clear();
         this.#placedShips.clear();
         this.#guessedSpaces.clear();
+        this.#shipAxis.clear();
 
         return this;
     }

@@ -448,6 +448,7 @@ Visual indicators for which boards can be interacted with
 }
 
 .grid-squares {
+  position: relative;
   cursor:pointer;
   display: grid;
   grid-template-rows: repeat(10, 1fr);
@@ -493,7 +494,7 @@ GAME BUTTONS
 }
 
 .game-button.hidden {
-  display: none;
+ visibility: hidden;
 }
 
 /* 
@@ -551,4 +552,15 @@ VICTORY / DEFEAT MESSAGES
     border-color: var(--enemy-red);
     transition: border-color 1s ease;
   }
+}
+
+.battleship,
+.carrier,
+.destroyer,
+.patrolboat,
+.submarine {
+  position: absolute;
+  pointer-events: none;
+  width: fit-content;
+  object-fit: cover;
 }

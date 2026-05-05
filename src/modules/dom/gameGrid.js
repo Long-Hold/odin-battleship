@@ -83,15 +83,46 @@ export function assignGameGridIDs(hasComputerPlayer = true) {
  * @param {HTMLElement} gameBoard - The element that represents the Gameboard. 
  * @param {string[]} shipPlacements - An array of coordinates.
  */
-export function displayShips(gameBoard, shipPlacements) {
+export async function displayShips(gameBoard, shipPlacements, shipAxis) {
     const occupiedCoords = gameBoard.querySelectorAll('.has-ship');
     for (let i = 0; i < occupiedCoords.length; ++i)
         occupiedCoords[i].classList.remove('has-ship');
 
-    for (let i = 0; i < shipPlacements.length; ++i) {
-        const coord = shipPlacements[i];
+    // const coordElement = gameBoard.querySelector(`[data-coordinate="${coord}"]`);
+    const gridSquares = gameBoard.querySelector('.grid-squares');
+    const gridRec = gridSquares.getBoundingClientRect();
+    let currentShip = null;
+
+    for (const [coord, ship] of shipPlacements) {
+        if (currentShip === ship.type)
+            continue;
+        currentShip = ship.type;
+
         const coordElement = gameBoard.querySelector(`[data-coordinate="${coord}"]`);
-        coordElement.classList.add('has-ship');
+        const coordRec = coordElement.getBoundingClientRect();
+
+        const boatSprite = await import(`../../images/sprites/${currentShip}.svg`);
+        const img = document.createElement('img');
+        img.src = boatSprite.default;
+        img.classList.add(currentShip);
+        gridSquares.appendChild(img);
+
+        const left = coordRec.left - gridRec.left;
+        const top = coordRec.top - gridRec.top;
+
+        img.style.left = `${left}px`;
+        img.style.top = `${top}px`;
+
+        const cellWidth = coordRec.width;
+        const shipWidth = cellWidth * ship.length;
+        img.style.width = `${shipWidth}px`;
+        img.style.height = `${cellWidth}px`;
+
+        if (shipAxis.get(ship) === Gameboard.AXIS.ROW) {
+            img.style.transformOrigin = '0 0';;
+            img.style.transform = 'rotate(90deg)';
+            img.style.left = `${left + cellWidth}px`;
+        }
     }
 }
 

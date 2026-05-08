@@ -56,8 +56,19 @@ export class Player {
 }
 
 export class Computer extends Player {
+    /**
+     * An array that serves the role of a Queue data structure.
+     * 
+     * It's purpose is to store valid coordinates adjacent to a coordinate that was
+     * marked as a hit. 
+     * 
+     * These coordinates get popped off the stack and returned as the CPU's move during it's turn.
+     */
+    #coordQueue;
+
     constructor() {
         super();
+        this.#coordQueue = [];
     }
 
     /**

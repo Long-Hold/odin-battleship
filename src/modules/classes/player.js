@@ -90,4 +90,24 @@ export class Computer extends Player {
             else return coordinate;
         }
     }
+
+    /**
+     * Returns a coordinate string from the Gameboard.
+     * 
+     * This method is used to retrieve an automated move from the Computer player.
+     * 
+     * @returns {string} A coordinate from the Gameboard
+     */
+    getAttack() {
+        /**
+         * If the coordinate queue is empty, then we aren't trying to sink a ship this turn.
+         * The CPU will instead attack a random square anytime this method is called until a hit is landed.
+         */
+        if (this.#coordQueue.length === 0)
+            return this.getRandomAttack();
+
+        return this.#coordQueue.shift();
+    }
+
+    //TODO: calculateAdjacentMoves() method to smart target ships
 }

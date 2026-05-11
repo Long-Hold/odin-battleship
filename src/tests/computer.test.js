@@ -29,7 +29,7 @@ describe('class Computer extends Player', () => {
 
                 // Record this attack and then remove it from the array
                 computer.gameBoard.recordPlacedAttack(randomCoord);
-                unusedCoordinates.splice(unusedCoordinates.indexOf(randomCoord));
+                unusedCoordinates.splice(unusedCoordinates.indexOf(randomCoord), 1);
             }
 
             // Make sure all those coordinates were retrieved by the method

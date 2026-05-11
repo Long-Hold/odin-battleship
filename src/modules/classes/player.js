@@ -109,5 +109,11 @@ export class Computer extends Player {
         return this.#coordQueue.shift();
     }
 
-    //TODO: calculateAdjacentMoves() method to smart target ships
+    queueAdjacentAttacks(referenceCoordinate) {
+        if (this.gameBoard.guessedSpaces.has(referenceCoordinate) === false)
+            throw new Error(`${referenceCoordinate} has not been guessed by CPU`);
+
+        const adjacentCoordinates = [...Gameboard.getAdjacentCoordinates(referenceCoordinate)];
+        this.#coordQueue = adjacentCoordinates.filter(coord => this.gameBoard.guessedSpaces.has(coord) === false);
+    }
 }

@@ -36,4 +36,22 @@ describe('class Computer extends Player', () => {
             expect(unusedCoordinates.length).toBe(0);
         });
     });
+    describe('Computer.getAdjacentAttacks()', () => {
+        test('throws Error if passed an unguessed coordinate', () => {
+            expect(() => computer.queueAdjacentAttacks('A1')).toThrow(Error);
+            expect(() => computer.queueAdjacentAttacks('j10')).toThrow(Error);
+            expect(() => computer.queueAdjacentAttacks('B6')).toThrow(Error);
+        });
+        test('queues 4 adjacent attacks from the reference coordinate', () => {
+            const adjacentCoordinates = ['B1', 'C2', 'B3', 'A2'];
+            const referenceCoordinate = 'B2';
+
+            computer.gameBoard.recordPlacedAttack(referenceCoordinate);
+            computer.queueAdjacentAttacks(referenceCoordinate);
+            for (let i = 0; i < 4; ++i) {
+                const result = computer.getAttack();
+                expect(adjacentCoordinates.includes(result)).toBe(true);
+            }
+        });
+    });
 });

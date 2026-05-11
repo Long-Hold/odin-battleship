@@ -53,5 +53,31 @@ describe('class Computer extends Player', () => {
                 expect(adjacentCoordinates.includes(result)).toBe(true);
             }
         });
+        test.each([
+            {attacks: ['B2', 'B3'], reference: 'B2', toIgnore: 'B3', queue: ['B1', 'C2', 'A2']},
+            {attacks: ['A1', 'A2'], reference: 'A1', toIgnore: 'A2', queue: ['B1']},
+            {attacks: ['A10', 'B10'], reference: 'A10', toIgnore: 'B10', queue: ['A9']},
+            {attacks: ['J1', 'I1'], reference: 'J1', toIgnore: 'I1', queue: ['J2']},
+            {attacks: ['J10', 'J9'], reference: 'J10', toIgnore: 'J9', queue: ['I10']},
+            {attacks: ['A5', 'A6'], reference: 'A5', toIgnore: 'A6', queue: ['A4', 'B5']},
+            {attacks: ['J5', 'J4'], reference: 'J5', toIgnore: 'J4', queue: ['J6', 'I5']},
+            {attacks: ['E1', 'D1'], reference: 'E1', toIgnore: 'D1', queue: ['F1', 'E2']},
+            {attacks: ['E10', 'F10'], reference: 'E10', toIgnore: 'F10', queue: ['D10', 'E9']},
+            {attacks: ['E5', 'E4', 'E6', 'D5'], reference: 'E5', toIgnore: 'E4', queue: ['F5']},
+        ])('filters out guessed attack: $toIgnore from queue', ({attacks, reference, toIgnore, queue}) => {
+            for (let i = 0; i < attacks.length; ++i)
+                computer.gameBoard.recordPlacedAttack(attacks[i]);
+
+            computer.queueAdjacentAttacks(reference);
+            for (let i = 0; i < queue.length; ++i) {
+                const result = computer.getAttack();
+                expect(result).not.toBe(toIgnore);
+                expect(queue.includes(result)).toBe(true);
+            }
+
+            // Should be a random coordinate
+            const result = computer.getAttack();
+            expect(queue.includes(result)).toBe(false);
+        });
     });
 });

@@ -23,7 +23,7 @@ export async function runGame(game, coordinateRetriever) {
             coord = await coordinateRetriever();
         else {
             await sleep(500);
-            coord = playerTwo.getRandomAttack();
+            coord = playerTwo.getAttack();
         }
 
         let attackResult = null;
@@ -35,6 +35,13 @@ export async function runGame(game, coordinateRetriever) {
         }
 
         setGridSquareStatus(opponent.board, coord, attackResult);
+
+        /**
+         * If the CPU's attack hit the opponents ship, then it will calculate it's next moves
+         * intelligently to finish that ship off
+         */
+        if (current.player === playerTwo && attackResult === true)
+            playerTwo.queueAdjacentAttacks(coord);
 
         /**
          * Gets the board of the players on the DOM and show the winner / loser message

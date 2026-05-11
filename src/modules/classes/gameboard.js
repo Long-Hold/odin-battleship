@@ -66,6 +66,37 @@ export class Gameboard {
     }
 
     /**
+     * Takes reference coordinate and returns an array of adjacent coordinates to that reference coordinate.
+     * 
+     * @param {string} referenceCoordinate - The coordinate that adjacent coordinates are calculated from
+     * @returns {string[]} An array of 0–4 valid, in-bounds adjacent coordinates
+     */
+    static getAdjacentCoordinates(referenceCoordinate) {
+        if (this.isOutOfBounds(referenceCoordinate))
+            return [];
+
+        const adjacentCoordinates = [];
+        const column = referenceCoordinate[0].toUpperCase().charCodeAt();
+        const row = Number(referenceCoordinate.slice(1));
+
+
+        //Get the adjacent top coordinate
+        if (row !== this.BOUNDS.ROW.START)
+            adjacentCoordinates.push(`${String.fromCharCode(column)}${row - 1}`);
+        // Get the adjacent bottom coordinate
+        if (row !== this.BOUNDS.ROW.END)
+            adjacentCoordinates.push(`${String.fromCharCode(column)}${row + 1}`);
+        // Get the adjacent left coordinate
+        if (column !== this.BOUNDS.COL.START)
+            adjacentCoordinates.push(`${String.fromCharCode(column - 1)}${row}`);
+        // Get the adjacent right coordinate
+        if (column !== this.BOUNDS.COL.END)
+            adjacentCoordinates.push(`${String.fromCharCode(column + 1)}${row}`);
+
+        return adjacentCoordinates;
+    }
+
+    /**
      * A Map() that stores Key: Values of the coordinate and it's linked ship in a 
      * <string, ship> fashion.
      * 

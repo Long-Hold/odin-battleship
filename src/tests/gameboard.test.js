@@ -65,7 +65,33 @@ describe('class Gameboard', () => {
                     expect(Gameboard.isOutOfBounds(coordinate)).toBe(false);
                 }
             });
-        })
+        });
+        describe('Gameboard.getAdjacentCoordinates()', () => {
+            test.each([
+                'A11', 'K1', '', '  ', 1, [], null
+            ])('returns an empty array when passed an invalid coordinate', (input) => {
+                const coordArray = Gameboard.getAdjacentCoordinates(input);
+                expect(coordArray.length).toBe(0);
+            });
+            test.each([
+                {coord: 'A1', length: 2, adjCoords: ['B1', 'A2']},
+                {coord: 'J10', length: 2, adjCoords: ['J9', 'I10']},
+                {coord: 'e4', length: 4, adjCoords: ['E3', 'E5', 'F4', 'D4']},
+                {coord: 'F1', length: 3, adjCoords: ['F2', 'G1', 'E1']},
+                {coord: 'C10', length: 3, adjCoords: ['C9', 'B10', 'D10']},
+                {coord: 'A5', length: 3, adjCoords: ['A4', 'B5', 'A6']},
+                {coord: 'J3', length: 3, adjCoords: ['J2', 'I3', 'J4']}
+            ])('expect $coord to have length: $length and adjacent coords of $adjCoords', ({coord, length, adjCoords}) => {
+                const adjacentCoordinates = Gameboard.getAdjacentCoordinates(coord);
+                expect(adjacentCoordinates.length).toBe(length);
+
+                adjacentCoordinates.sort();
+                adjCoords.sort();
+                
+                for (let i = 0; i < adjacentCoordinates.length; ++i) 
+                    expect(adjacentCoordinates[i]).toBe(adjCoords[i]);
+            });
+        });
     });
 
 

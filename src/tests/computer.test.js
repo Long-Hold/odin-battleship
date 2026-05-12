@@ -6,7 +6,7 @@ describe('class Computer extends Player', () => {
         computer = new Computer();
     });
 
-    describe('Computer.getRandomAttack()', () => {
+    describe('Computer.getAttack()', () => {
         test('returns a coordinate that has not been guessed already', () => {
             const unusedCoordinates = ['A1', 'J10', 'E6', 'F3'];
             
@@ -24,7 +24,7 @@ describe('class Computer extends Player', () => {
             }
 
             while (unusedCoordinates.length > 0) {
-                const randomCoord = computer.getRandomAttack();
+                const randomCoord = computer.getAttack();
                 expect(unusedCoordinates.includes(randomCoord)).toBe(true);
 
                 // Record this attack and then remove it from the array

@@ -83,7 +83,7 @@ export class Computer extends Player {
      * 
      * @returns {string} A randomly chosen, valid coordinate from the Gameboard.
      */
-    getRandomAttack() {
+    #getRandomAttack() {
         while (true) {
             const coordinate = Gameboard.getRandomCoordinate();
 
@@ -108,7 +108,7 @@ export class Computer extends Player {
          * The CPU will instead attack a random square anytime this method is called until a hit is landed.
          */
         if (this.#targeting.queue.length === 0)
-            return this.getRandomAttack();
+            return this.#getRandomAttack();
         
         return this.#targeting.queue.shift();
     }

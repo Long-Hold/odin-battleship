@@ -57,18 +57,22 @@ export class Player {
 
 export class Computer extends Player {
     /**
-     * An array that serves the role of a Queue data structure.
+     * An object that stores data to help the Computer player make an intelligent attack.
      * 
-     * It's purpose is to store valid coordinates adjacent to a coordinate that was
-     * marked as a hit. 
-     * 
-     * These coordinates get popped off the stack and returned as the CPU's move during it's turn.
+     * Paramters:
+     * queue - A series of coordinates adjacent to a coordinate that was hit in the most recent move
+     * hitStreak - A recording of coordinates hit in the current streak to help determine ship direction
+     * lockedDirection - the direction to caluclate next moves for
      */
-    #coordQueue;
+    #targeting;
 
     constructor() {
         super();
-        this.#coordQueue = [];
+        this.#targeting = {
+            queue: [],
+            hitStreak: [],
+            lockedDirection: null,
+        }
     }
 
     /**
@@ -103,10 +107,10 @@ export class Computer extends Player {
          * If the coordinate queue is empty, then we aren't trying to sink a ship this turn.
          * The CPU will instead attack a random square anytime this method is called until a hit is landed.
          */
-        if (this.#coordQueue.length === 0)
+        if (this.#targeting.queue.length === 0)
             return this.getRandomAttack();
-
-        return this.#coordQueue.shift();
+        
+        return this.#targeting.queue.shift();
     }
 
     queueAdjacentAttacks(referenceCoordinate) {
@@ -114,6 +118,6 @@ export class Computer extends Player {
             throw new Error(`${referenceCoordinate} has not been guessed by CPU`);
 
         const adjacentCoordinates = [...Gameboard.getAdjacentCoordinates(referenceCoordinate)];
-        this.#coordQueue = adjacentCoordinates.filter(coord => this.gameBoard.guessedSpaces.has(coord) === false);
+        this.#targeting.queue = adjacentCoordinates.filter(coord => this.gameBoard.guessedSpaces.has(coord) === false);
     }
 }

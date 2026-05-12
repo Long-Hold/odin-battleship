@@ -92,6 +92,55 @@ describe('class Gameboard', () => {
                     expect(adjacentCoordinates[i]).toBe(adjCoords[i]);
             });
         });
+        describe('Gameboard.getAxisDirection()', () => {
+            test.each([
+                ['a10', 'a10'],
+                ['J10', 'j10'],
+                ['B5', 'B5']
+            ])('throws Error if both coordinates are the same', (start, end) => {
+                expect(() => Gameboard.getAxisDirection(start, end)).toThrow(Error);
+            });
+            test('throws Error when one or both parameters are invalid coordinates', () => {
+                const invalidOne = 'A0';
+                const invalidTwo = 'K8';
+                const validOne = 'B4';
+                const validTwo = 'B5';
+                
+                // Both params invalid
+                expect(() => Gameboard.getAxisDirection(invalidOne, invalidTwo)).toThrow(Error);
+
+                // First param invalid
+                expect(() => Gameboard.getAxisDirection(invalidOne, validTwo)).toThrow(Error);
+
+                // Second param invalid
+                expect(() => Gameboard.getAxisDirection(validOne, invalidTwo)).toThrow(Error);
+
+                //Neither param invalid
+                expect(() => Gameboard.getAxisDirection(validOne, validTwo)).not.toThrow();
+            });
+            test.each([
+                ['A1', 'J10'],
+                ['A10', 'J1'],
+                ['c3', 'b2']
+            ])('throws Error when passed diagonal coordinates', (start, end) => {
+                expect(() => Gameboard.getAxisDirection(start, end)).toThrow(Error);
+            });
+            test.each([
+                ['a1', 'j1'],
+                ['C4', 'C3'],
+                ['J5', 'B5']
+            ])('does not throw when passed coordinates on the same axis', (start, end) => {
+                expect(() => Gameboard.getAxisDirection(start, end)).not.toThrow();
+            });
+            test.each([
+                {start: 'A1', end: 'C1', axis: 'NUMBER'},
+                {start: 'D5', end: 'D10', axis: 'LETTER'},
+                {start: 'J9', end: 'J3', axis: 'LETTER'},
+                {start: 'E10', end: 'D10', axis: 'NUMBER'},
+            ])('[$start, $end] return the axis direction: $axis', ({start, end, axis}) => {
+                expect(Gameboard.getAxisDirection(start, end)).toBe(axis);
+            });
+        });
     });
 
 

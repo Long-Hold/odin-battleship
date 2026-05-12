@@ -97,6 +97,53 @@ export class Gameboard {
     }
 
     /**
+     * Determines the axis a ship is facing on the Gameboard grid by calculating the difference
+     * of the Row or Column axis portion of two coordinates.
+     * 
+     * Coordinate pairs with a difference in the column axis (letter axis) are facing the 
+     * row axis (number axis).
+     * 
+     * Coordinate pairs with a difference in the row axis (number axis) are facing 
+     * the column axis (letter axis).
+     * 
+     * @param {string} startCoordinate - The first coordinate point used to determine direction
+     * @param {string} endCoordinate - The second coordinate point used to determine direction
+     * @returns {string} The axis that the ship is facing
+     */
+    static getAxisDirection(startCoordinate, endCoordinate) {
+        const startCoord = startCoordinate.toUpperCase().trim();
+        const endCoord = endCoordinate.toUpperCase().trim();
+
+        if (startCoord === endCoord)
+            throw new Error('A direction cannot be determined if both coordinates are the same');
+        if (this.isOutOfBounds(startCoord) || this.isOutOfBounds(endCoord))
+            throw new Error('invalid coordinate passed');
+
+        /**
+         * The rule for determining an axis direction is that only one axis can be different.
+         * 
+         * If both the letter and number axis are different between the two coordinates, then
+         * the direction is diagonal which is not a valid axis direction for the Gameboard.
+         */
+        const columnDiff = startCoord[0].charCodeAt() - endCoord[0].charCodeAt();
+        const rowDiff = Number(startCoord.slice(1)) - Number(endCoord.slice(1));
+        if (columnDiff !== 0 && rowDiff !== 0)
+            throw new Error('Axis direction cannot be diagonal');
+
+        /**
+         * If there is a difference between the columns, then that means the ship is
+         * horizontal, along the same row. The number values would be the same in both coordinates.
+         * 
+         * If there is a difference between the rows, then the ship is vertical, within
+         * the same column. The letter values would be the same in both coordinates.
+         */
+        if (columnDiff !== 0)
+            return this.AXIS.ROW;
+        if (rowDiff !== 0)
+            return this.AXIS.COL
+    }
+
+    /**
      * A Map() that stores Key: Values of the coordinate and it's linked ship in a 
      * <string, ship> fashion.
      * 

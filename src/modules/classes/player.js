@@ -114,10 +114,24 @@ export class Computer extends Player {
     }
 
     queueAdjacentAttacks(referenceCoordinate) {
-        if (this.gameBoard.guessedSpaces.has(referenceCoordinate) === false)
-            throw new Error(`${referenceCoordinate} has not been guessed by CPU`);
+        const referenceCoord = referenceCoordinate.toUpperCase();
 
-        const adjacentCoordinates = [...Gameboard.getAdjacentCoordinates(referenceCoordinate)];
-        this.#targeting.queue = adjacentCoordinates.filter(coord => this.gameBoard.guessedSpaces.has(coord) === false);
+        if (this.gameBoard.guessedSpaces.has(referenceCoord) === false)
+            throw new Error(`${referenceCoord} has not been guessed by CPU`);
+
+        // If there is a hitStreak of at least 1, then find coordinates along ship axis
+        // if (this.#targeting.hitStreak.length > 0) {
+        //     // Remove any previous adjacent coordinates to ensure only axis is attacked
+        //     this.#targeting.queue.length = 0;
+        //     // TODO: getAdjacentDirection
+        // }
+
+        // Otherwise all adjacent coordinates need to be checked until another hit is found or queue is exhausted
+        else {
+            const adjacentCoordinates = [...Gameboard.getAdjacentCoordinates(referenceCoordinate)];
+            this.#targeting.queue = adjacentCoordinates.filter(coord => this.gameBoard.guessedSpaces.has(coord) === false);
+        }
+
+        this.#targeting.hitStreak.push(referenceCoord);
     }
 }

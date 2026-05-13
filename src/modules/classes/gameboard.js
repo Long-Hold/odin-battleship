@@ -15,11 +15,14 @@ export class Gameboard {
 
     /**
      * Provides a standard way to define axis labelling.
-     * Can be used to signal the direction an object is facing, 
+     * Can be used to signal the direction an object is facing,
+     * or whether an axis is ascending or descending.
      */
     static AXIS = {
         COL: 'LETTER',
-        ROW: 'NUMBER'
+        ROW: 'NUMBER',
+        ASCENDING: 'ASCENDING',
+        DESCENDING: 'DESCENDING'
     }
 
     /**
@@ -141,6 +144,47 @@ export class Gameboard {
             return this.AXIS.ROW;
         if (rowDiff !== 0)
             return this.AXIS.COL
+    }
+
+    /**
+     * Finds the sibling coordinate of a reference coordinate based on the indicated
+     * axis the reference coordinate is face, and if we should be ascending or descending the axis.
+     * 
+     * If the coordinate is either a letter or number border coordinate, and siblingDirection would cause
+     * the sibling to be 'outside' of the game borders, then the return value is null.
+     * 
+     * @param {string} referenceCoordinate - The coordinate to find the sibling of
+     * @param {string} referenceAxis - The direction the ship of the reference coordinate is facing
+     * @param {string} siblingDirection - The direction of the sibling to find relative to the reference coordinate
+     * @returns {null | string} The sibling coordinate of referenceCoordinate, or null if the params go beyond the game border.
+     */
+    static getSiblingCoordinate(referenceCoordinate, referenceAxis, siblingDirection) {
+        const referenceCoord = referenceCoordinate.toUpperCase().trim();
+        if (this.isOutOfBounds(referenceCoord))
+            throw new Error(`${referenceCoordinate} is an invalid coordinate`);
+
+        const axisDirection = referenceAxis.toUpperCase().trim();
+        if (axisDirection !== this.AXIS.COL && axisDirection !== this.AXIS.ROW)
+            throw new Error(`${referenceAxis} is not a valid axis`);
+
+        const siblingDir = siblingDirection.toUpperCase().trim();
+        if (siblingDir !== this.AXIS.ASCENDING && siblingDir !== this.AXIS.DESCENDING)
+            throw new Error(`${siblingDirection} is not a valid direction`);
+
+        let siblingCoordinate = null;
+        if (axisDirection === this.AXIS.COL) {
+            siblingCoordinate = (siblingDir === this.AXIS.ASCENDING) ? 
+            `${referenceCoord[0]}${Number(referenceCoord.slice(1)) + 1}` :
+            `${referenceCoord[0]}${Number(referenceCoord.slice(1))  - 1}`;
+        }
+        else if (axisDirection === this.AXIS.ROW) {
+            const columnCoord = referenceCoord[0].charCodeAt();
+            siblingCoordinate = (siblingDir === this.AXIS.ASCENDING) ?
+            `${String.fromCharCode(columnCoord + 1)}${referenceCoord.slice(1)}` :
+            `${String.fromCharCode(columnCoord - 1)}${referenceCoord.slice(1)}`;
+        }
+
+        return this.isOutOfBounds(siblingCoordinate) ? null : siblingCoordinate;
     }
 
     /**

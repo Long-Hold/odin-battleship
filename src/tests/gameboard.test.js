@@ -141,6 +141,48 @@ describe('class Gameboard', () => {
                 expect(Gameboard.getAxisDirection(start, end)).toBe(axis);
             });
         });
+        describe('Gameboard.getSiblingCoordinate()', () => {
+            test('throws Error for invalid axis', () => {
+                expect(() => Gameboard.getSiblingCoordinate('A1', 'LETTER', 'ASCENDING')).not.toThrow();
+                expect(() => Gameboard.getSiblingCoordinate('F8', 'NUMBER', 'DESCENDING')).not.toThrow();
+                expect(() => Gameboard.getSiblingCoordinate('J10', 'ROW', 'ASCENDING')).toThrow(Error);
+            });
+            test('throws Error for invalid direction', () => {
+                expect(() => Gameboard.getSiblingCoordinate('A1', 'LETTER', 'ASCENDING')).not.toThrow();
+                expect(() => Gameboard.getSiblingCoordinate('F8', 'NUMBER', 'DESCENDING')).not.toThrow();
+                expect(() => Gameboard.getSiblingCoordinate('A1', 'LETTER', 'increase')).toThrow(Error);
+            });
+            describe('return values for reference coordinates facing LETTER axis', () => {
+                test.each([
+                    {referenceCoord: 'A1', referenceAxis: 'LETTER', siblingDir: 'ASCENDING', expected: 'A2'},
+                    {referenceCoord: 'J9', referenceAxis: 'LETTER', siblingDir: 'ASCENDING', expected: 'J10'},
+                    {referenceCoord: 'F6', referenceAxis: 'LETTER', siblingDir: 'ASCENDING', expected: 'F7'},
+                    {referenceCoord: 'A10', referenceAxis: 'LETTER', siblingDir: 'DESCENDING', expected: 'A9'},
+                    {referenceCoord: 'C2', referenceAxis: 'LETTER', siblingDir: 'DESCENDING', expected: 'C1'},
+                    {referenceCoord: 'H7', referenceAxis: 'LETTER', siblingDir: 'DESCENDING', expected: 'H6'},
+                    {referenceCoord: 'J10', referenceAxis: 'LETTER', siblingDir: 'ASCENDING', expected: null},
+                    {referenceCoord: 'E10', referenceAxis: 'LETTER', siblingDir: 'ASCENDING', expected: null},
+                    {referenceCoord: 'E1', referenceAxis: 'LETTER', siblingDir: 'DESCENDING', expected: null},
+                    {referenceCoord: 'A1', referenceAxis: 'LETTER', siblingDir: 'DESCENDING', expected: null},
+                ])('returns $expected when passed $referenceCoord and $siblingDir', ({referenceCoord, referenceAxis, siblingDir, expected}) => {
+                    expect(Gameboard.getSiblingCoordinate(referenceCoord, referenceAxis, siblingDir)).toBe(expected);
+                });
+            });
+            describe('return values for reference coordinates facing NUMBER axis', () => {
+                test.each([
+                    {referenceCoord: 'A1', referenceAxis: 'NUMBER', siblingDir: 'ASCENDING', expected: 'B1'},
+                    {referenceCoord: 'I10', referenceAxis: 'NUMBER', siblingDir: 'ASCENDING', expected: 'J10'},
+                    {referenceCoord: 'E6', referenceAxis: 'NUMBER', siblingDir: 'ASCENDING', expected: 'F6'},
+                    {referenceCoord: 'B9', referenceAxis: 'NUMBER', siblingDir: 'DESCENDING', expected: 'A9'},
+                    {referenceCoord: 'J1', referenceAxis: 'NUMBER', siblingDir: 'DESCENDING', expected: 'I1'},
+                    {referenceCoord: 'D2', referenceAxis: 'NUMBER', siblingDir: 'DESCENDING', expected: 'C2'},
+                    {referenceCoord: 'J10', referenceAxis: 'NUMBER', siblingDir: 'ASCENDING', expected: null},
+                    {referenceCoord: 'A10', referenceAxis: 'NUMBER', siblingDir: 'DESCENDING', expected: null},
+                ])('returns $expected when passed $referenceCoord and $siblingDir', ({referenceCoord, referenceAxis, siblingDir, expected}) => {
+                    expect(Gameboard.getSiblingCoordinate(referenceCoord, referenceAxis, siblingDir)).toBe(expected);
+                });
+            });
+        });
     });
 
 

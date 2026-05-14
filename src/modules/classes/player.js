@@ -69,9 +69,14 @@ export class Computer extends Player {
     constructor() {
         super();
         this.#targeting = {
+            // The queue of attacks to pick from in the case a hit is registered
             queue: [],
-            hitStreak: [],
+            // The coordinate of the initial strike, serves as a reference for targeting the rest of the ship
+            initialStrike: null,
+            // The direction to attack in, either ascending or descending in coordinate value
             lockedDirection: null,
+            // The axis the enemy ship is facing
+            facingAxis: null,
         }
     }
 
@@ -119,12 +124,13 @@ export class Computer extends Player {
         if (this.gameBoard.guessedSpaces.has(referenceCoord) === false)
             throw new Error(`${referenceCoord} has not been guessed by CPU`);
 
-        // If there is a hitStreak of at least 1, then find coordinates along ship axis
-        // if (this.#targeting.hitStreak.length > 0) {
-        //     // Remove any previous adjacent coordinates to ensure only axis is attacked
-        //     this.#targeting.queue.length = 0;
-        //     // TODO: getAdjacentDirection
-        // }
+        /**
+         * TODO: Check if an initial strike has landed, then calculate the axis the ship is facing,
+         * and if the new referenceCoordinate is higher or lower than the initial strike to determine
+         * what direction to keep attacking in.
+         * 
+         * Then, attack in the opposite direction starting from the initial strike again upon landing a miss.
+         */
 
         // Otherwise all adjacent coordinates need to be checked until another hit is found or queue is exhausted
         else {
@@ -132,6 +138,6 @@ export class Computer extends Player {
             this.#targeting.queue = adjacentCoordinates.filter(coord => this.gameBoard.guessedSpaces.has(coord) === false);
         }
 
-        this.#targeting.hitStreak.push(referenceCoord);
+        this.#targeting.initialStrike = referenceCoord;
     }
 }

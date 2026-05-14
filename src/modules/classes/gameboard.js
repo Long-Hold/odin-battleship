@@ -187,6 +187,8 @@ export class Gameboard {
         return this.isOutOfBounds(siblingCoordinate) ? null : siblingCoordinate;
     }
 
+    //TODO: Static method to determine whether or not a coordinate is higher or lower from a reference
+
     /**
      * A Map() that stores Key: Values of the coordinate and it's linked ship in a 
      * <string, ship> fashion.

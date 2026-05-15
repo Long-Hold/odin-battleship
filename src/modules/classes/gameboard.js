@@ -187,7 +187,41 @@ export class Gameboard {
         return this.isOutOfBounds(siblingCoordinate) ? null : siblingCoordinate;
     }
 
-    //TODO: Static method to determine whether or not a coordinate is higher or lower from a reference
+    /**
+     * Finds the direction a pair of coordinates is heading by calculating the differences
+     * in their axis points.
+     * 
+     * A coordinate pair is considered ASCENDING if either or both:
+     *  - endCoordinate letter axis is greater than startCoordinate
+     *  - endCoordinate number axis is greater than startCoordinate
+     * 
+     * The inverse applies for DESCENDING pairs.
+     * 
+     * The returned value is from the Gameboard.AXIS static object.
+     * 
+     * @param {string} startCoordinate - The starting coordinate for comparison
+     * @param {string} endCoordinate - The end coordinate for comparison
+     * @returns {string} A static variable that contains a string reflecting the coordinate direction
+     */
+    static getCoordinateDirection(startCoordinate, endCoordinate) {
+        const startCoord = startCoordinate.toUpperCase().trim();
+        const endCoord = endCoordinate.toUpperCase().trim();
+        if (this.isOutOfBounds(startCoord) || this.isOutOfBounds(endCoord))
+            throw new Error(`${this.isOutOfBounds(startCoord) ? startCoord : endCoord} is not a valid coordinate`);
+        if (startCoord === endCoord)
+            throw new Error('coordinates cannot be the same');
+
+        const startLetter = startCoord[0];
+        const startNumber = parseInt(startCoord.slice(1));
+
+        const endLetter = endCoord[0];
+        const endNumber = parseInt(endCoord.slice(1));
+
+        if (startLetter !== endLetter)
+            return startLetter < endLetter ? this.AXIS.ASCENDING : this.AXIS.DESCENDING;
+
+        return startNumber < endNumber ? this.AXIS.ASCENDING : this.AXIS.DESCENDING;
+    }
 
     /**
      * A Map() that stores Key: Values of the coordinate and it's linked ship in a 

@@ -183,6 +183,39 @@ describe('class Gameboard', () => {
                 });
             });
         });
+        describe('Gameboard.getCoordinateDirection()', () => {
+            test.each([
+                // On the same axis
+                {start: 'A1', end: 'A2', result: 'ASCENDING'},
+                {start: 'A2', end: 'A1', result: 'DESCENDING'},
+
+                // Different letters
+                {start: 'A1', end: 'B1', result: 'ASCENDING'},
+                {start: 'B1', end: 'A1', result: 'DESCENDING'},
+
+                // Different letters and values
+                {start: 'B4', end: 'E7', result: 'ASCENDING'},
+                {start: 'E7', end: 'B4', result: 'DESCENDING'},
+
+                // Check for string comparison with near similar numeric values
+                {start: 'J9', end: 'J10', result: 'ASCENDING'},
+                {start : 'J10', end: 'J9', result: 'DESCENDING'},
+
+                // lower case
+                {start: 'b9', end: 'c10', result: 'ASCENDING'},
+                {start: 'c10', end: 'b9', result: 'DESCENDING'},
+
+                // Boundary coordinates
+                { start: 'A1', end: 'J10', result: 'ASCENDING' },
+                { start: 'J10', end: 'A1', result: 'DESCENDING' },
+            ])('returns $result for [$start, $end]', ({start, end, result}) => {
+                expect(Gameboard.getCoordinateDirection(start, end)).toBe(result);
+            });
+            test('throws Error when passed duplicate coordinates', () => {
+                expect(() => Gameboard.getCoordinateDirection('A1','A1')).toThrow(Error);
+                expect(() => Gameboard.getCoordinateDirection('j10', 'J10')).toThrow(Error);
+            });
+        });
     });
 
 

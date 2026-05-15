@@ -125,12 +125,21 @@ export class Computer extends Player {
             throw new Error(`${referenceCoord} has not been guessed by CPU`);
 
         /**
-         * TODO: Check if an initial strike has landed, then calculate the axis the ship is facing,
-         * and if the new referenceCoordinate is higher or lower than the initial strike to determine
-         * what direction to keep attacking in.
-         * 
-         * Then, attack in the opposite direction starting from the initial strike again upon landing a miss.
+         * TODO: 
+         *  - attack in the opposite direction starting from the initial strike again upon landing a miss.
+         *  - RESET this.#targeting
          */
+        if (this.#targeting.initialStrike) {
+            this.#targeting.queue.length = 0;
+            // The axis the ship is FACING
+            this.#targeting.facingAxis = Gameboard.getAxisDirection(this.#targeting.initialStrike, referenceCoord);
+            // Now I can calculate whether or not this is reference coord is higher or lower than the initial strike
+            this.#targeting.lockedDirection = Gameboard.getCoordinateDirection(this.#targeting.initialStrike, referenceCoord);
+
+            // Now that I know whether the second strike was ascending or descending and the axis to increase / decrease
+            const nextAttack = Gameboard.getSiblingCoordinate(referenceCoord, this.#targeting.facingAxis, this.#targeting.lockedDirection);
+            this.#targeting.queue.push(nextAttack);
+        }
 
         // Otherwise all adjacent coordinates need to be checked until another hit is found or queue is exhausted
         else {

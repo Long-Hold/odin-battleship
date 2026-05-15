@@ -143,10 +143,9 @@ export class Computer extends Player {
 
         // Otherwise all adjacent coordinates need to be checked until another hit is found or queue is exhausted
         else {
-            const adjacentCoordinates = [...Gameboard.getAdjacentCoordinates(referenceCoordinate)];
+            const adjacentCoordinates = [...Gameboard.getAdjacentCoordinates(referenceCoord)];
             this.#targeting.queue = adjacentCoordinates.filter(coord => this.gameBoard.guessedSpaces.has(coord) === false);
+            this.#targeting.initialStrike = referenceCoord;
         }
-
-        this.#targeting.initialStrike = referenceCoord;
     }
 }

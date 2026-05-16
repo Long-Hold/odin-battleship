@@ -80,6 +80,13 @@ export class Computer extends Player {
         }
     }
 
+    #clearTargetingData() {
+        this.#targeting.queue.length = 0;
+        this.#targeting.initialStrike = null;
+        this.#targeting.lockedDirection = null;
+        this.#targeting.facingAxis = null;
+    }
+
     /**
      * Returns a random, un-played coordinate from the Gameboard.
      * 
@@ -128,6 +135,7 @@ export class Computer extends Player {
          * TODO: 
          *  - attack in the opposite direction starting from the initial strike again upon landing a miss.
          *  - RESET this.#targeting
+         *  - If Gameboard.getSiblingCoordinate returns null, switch directions and get the sibling using the initial strike coordinate
          */
         if (this.#targeting.initialStrike) {
             this.#targeting.queue.length = 0;
@@ -147,5 +155,26 @@ export class Computer extends Player {
             this.#targeting.queue = adjacentCoordinates.filter(coord => this.gameBoard.guessedSpaces.has(coord) === false);
             this.#targeting.initialStrike = referenceCoord;
         }
+    }
+
+    /**
+     * When the CPU makes a misssed attack, the targeting data is analyzed.
+     * If there is a queue, then the attacking direction is reversed from the initial strike to finish the ship off.
+     * 
+     * If there is no queue, then the targeting data is reset and the CPU will make random attacks until it lands another hit.
+     */
+    handleMissedAttack() {
+        if (this.#targeting.queue.length === 0) {
+            this.#clearTargetingData();
+            return;
+        }
+
+        // If there is still a queue, then targeting needs to reverse direction from the initial strike
+        const oppositeDirection = 
+            this.#targeting.lockedDirection === Gameboard.AXIS.ASCENDING ? 
+            Gameboard.AXIS.DESCENDING : 
+            Gameboard.AXIS.ASCENDING;
+        
+        this.#targeting.lockedDirection = oppositeDirection;
     }
 }

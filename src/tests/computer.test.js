@@ -80,5 +80,16 @@ describe('class Computer extends Player', () => {
             const result = computer.getAttack();
             expect(queue.includes(result)).toBe(false);
         });
+        test.each([
+            {initial: 'B2', second: 'B3', expectedSibling: 'B4'},
+        ])('queues $expectedSibling after hitting $initial and $second', ({initial, second, expectedSibling}) => {
+            computer.gameBoard.recordPlacedAttack(initial);
+            computer.queueAdjacentAttacks(initial);
+
+            computer.gameBoard.recordPlacedAttack(second);
+            computer.queueAdjacentAttacks(second);
+
+            expect(computer.getAttack()).toBe(expectedSibling);
+        });
     });
 });

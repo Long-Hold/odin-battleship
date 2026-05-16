@@ -73,6 +73,7 @@ describe('class Computer extends Player', () => {
                 const result = computer.getAttack();
                 expect(result).not.toBe(toIgnore);
                 expect(queue.includes(result)).toBe(true);
+                computer.gameBoard.recordPlacedAttack(result);
             }
 
             // Should be a random coordinate

@@ -40,8 +40,12 @@ export async function runGame(game, coordinateRetriever) {
          * If the CPU's attack hit the opponents ship, then it will calculate it's next moves
          * intelligently to finish that ship off
          */
-        if (current.player === playerTwo && attackResult === true)
-            playerTwo.queueAdjacentAttacks(coord);
+        if (current.player === playerTwo) {
+            if (attackResult === true)
+                playerTwo.queueAdjacentAttacks(coord);
+            else
+                playerTwo.handleMissedAttack();
+        }
 
         /**
          * Gets the board of the players on the DOM and show the winner / loser message

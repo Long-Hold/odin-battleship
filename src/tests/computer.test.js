@@ -80,16 +80,38 @@ describe('class Computer extends Player', () => {
             const result = computer.getAttack();
             expect(queue.includes(result)).toBe(false);
         });
-        test.each([
-            {initial: 'B2', second: 'B3', expectedSibling: 'B4'},
-        ])('queues $expectedSibling after hitting $initial and $second', ({initial, second, expectedSibling}) => {
-            computer.gameBoard.recordPlacedAttack(initial);
-            computer.queueAdjacentAttacks(initial);
+        describe('when lockedDirection is set (first conditional)', () => {
+            test.each([
+                { initial: 'B2', secondary: 'B3', tertiary: 'B4', expectedCoord: 'B5' },
+                { initial: 'B4', secondary: 'B3', tertiary: 'B2', expectedCoord: 'B1' },
+                { initial: 'C5', secondary: 'D5', tertiary: 'E5', expectedCoord: 'F5' },
+                { initial: 'E5', secondary: 'D5', tertiary: 'C5', expectedCoord: 'B5' },
+            ])('queues next sibling $expectedCoord after hits on $initial, $secondary, $tertiary', ({ initial, secondary, tertiary, expectedCoord }) => {
+                computer.gameBoard.recordPlacedAttack(initial);
+                computer.queueAdjacentAttacks(initial);
 
-            computer.gameBoard.recordPlacedAttack(second);
-            computer.queueAdjacentAttacks(second);
+                computer.gameBoard.recordPlacedAttack(secondary);
+                computer.queueAdjacentAttacks(secondary);
 
-            expect(computer.getAttack()).toBe(expectedSibling);
+                computer.gameBoard.recordPlacedAttack(tertiary);
+                computer.queueAdjacentAttacks(tertiary);
+
+                expect(computer.getAttack()).toBe(expectedCoord);
+            });
+
+            test('reverses direction when next sibling is out of bounds', () => {
+                // ASCENDING along LETTER axis hits the border at B10, should reverse to B7
+                computer.gameBoard.recordPlacedAttack('B8');
+                computer.queueAdjacentAttacks('B8');
+
+                computer.gameBoard.recordPlacedAttack('B9');
+                computer.queueAdjacentAttacks('B9');
+
+                computer.gameBoard.recordPlacedAttack('B10');
+                computer.queueAdjacentAttacks('B10');
+
+                expect(computer.getAttack()).toBe('B7');
+            });
         });
     });
     describe('Computer.handleMissedAttack()', () => {

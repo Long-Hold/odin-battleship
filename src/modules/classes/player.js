@@ -153,12 +153,25 @@ export class Computer extends Player {
             throw new Error(`${referenceCoord} has not been guessed by CPU`);
 
         /**
-         * TODO: 
-         *  - attack in the opposite direction starting from the initial strike again upon landing a miss.
-         *  - RESET this.#targeting
-         *  - If Gameboard.getSiblingCoordinate returns null, switch directions and get the sibling using the initial strike coordinate
+         * If CPU already has a locked direction, then I can just enqueue the next coordinate in that direction.
+         * If, however, that coordinate is out of bounds or a coordinate that's already been struck, then
+         * we can reverse direction.
          */
-        if (this.#targeting.initialStrike) {
+        if (this.#targeting.lockedDirection) {
+            // sanity check that the queue is emptied
+            this.#targeting.queue.length = 0;
+            const nextAttack = Gameboard.getSiblingCoordinate(
+                referenceCoord,
+                this.#targeting.facingAxis,
+                this.#targeting.lockedDirection
+            );
+            if (!nextAttack)
+                this.#reverseAndEnqueue();
+            else
+                this.#targeting.queue.push(nextAttack);
+        }
+
+        else if (this.#targeting.initialStrike) {
             this.#targeting.queue.length = 0;
             // The axis the ship is FACING
             this.#targeting.facingAxis = Gameboard.getAxisDirection(this.#targeting.initialStrike, referenceCoord);

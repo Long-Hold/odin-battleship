@@ -164,10 +164,7 @@ export class Computer extends Player {
      * If there is no queue, then the targeting data is reset and the CPU will make random attacks until it lands another hit.
      */
     handleMissedAttack() {
-        if (this.#targeting.queue.length === 0) {
-            this.#clearTargetingData();
-            return;
-        }
+        if (!this.#targeting.initialStrike || !this.#targeting.lockedDirection) return;
 
         // If there is still a queue, then targeting needs to reverse direction from the initial strike
         const oppositeDirection = 

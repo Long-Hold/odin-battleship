@@ -92,4 +92,39 @@ describe('class Computer extends Player', () => {
             expect(computer.getAttack()).toBe(expectedSibling);
         });
     });
+    describe('Computer.handleMissedAttack()', () => {
+        describe('does not mutate Computer.#targeting object', () => {
+            test('if there is no lockedDirection, but there is an initialStrike', () => {
+                const referenceCoord = 'B2';
+                const expectedQueue = ['A2', 'B1', 'C2', 'B3'];
+                const retrievedAttacks = [];
+
+                computer.gameBoard.recordPlacedAttack(referenceCoord);
+                computer.queueAdjacentAttacks(referenceCoord);
+
+                // This should have no effect on the expected returned coordinates
+                computer.handleMissedAttack();
+
+                for (let i = 0; i < expectedQueue.length; ++i) {
+                    const retrievedCoord = computer.getAttack();
+                    retrievedAttacks.push(retrievedCoord);
+                    computer.gameBoard.recordPlacedAttack(retrievedCoord);
+                }
+
+                expectedQueue.sort();
+                retrievedAttacks.sort();
+
+                /**
+                 * Because there is only an initial strike and no locked direction,
+                 * the #targeting property should not be modified in anyway, most notably
+                 * clearing the queue to reverse the direction prematurely.
+                 * 
+                 * So the two arrays should match in values
+                 */
+                expect(
+                    retrievedAttacks.every(coord => expectedQueue.includes(coord))
+                ).toBe(true);
+            });
+        });
+    });
 });

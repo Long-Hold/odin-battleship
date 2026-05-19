@@ -108,6 +108,27 @@ export class Computer extends Player {
     }
 
     /**
+     * Reverses the #targeting.lockedDirection property and enques the next coordinate
+     * from the new direction.
+     */
+    #reverseAndEnqueue() {
+        const oppositeDirection = 
+            this.#targeting.lockedDirection === Gameboard.AXIS.ASCENDING ? 
+            Gameboard.AXIS.DESCENDING : 
+            Gameboard.AXIS.ASCENDING;
+        
+        this.#targeting.lockedDirection = oppositeDirection;
+
+        this.#targeting.queue.length = 0;
+        const nextAttack = Gameboard.getSiblingCoordinate(
+            this.#targeting.initialStrike,
+            this.#targeting.facingAxis,
+            this.#targeting.lockedDirection
+        );
+        if (nextAttack) this.#targeting.queue.push(nextAttack);
+    }
+
+    /**
      * Returns a coordinate string from the Gameboard.
      * 
      * This method is used to retrieve an automated move from the Computer player.
@@ -166,12 +187,6 @@ export class Computer extends Player {
     handleMissedAttack() {
         if (!this.#targeting.initialStrike || !this.#targeting.lockedDirection) return;
 
-        // If there is still a queue, then targeting needs to reverse direction from the initial strike
-        const oppositeDirection = 
-            this.#targeting.lockedDirection === Gameboard.AXIS.ASCENDING ? 
-            Gameboard.AXIS.DESCENDING : 
-            Gameboard.AXIS.ASCENDING;
-        
-        this.#targeting.lockedDirection = oppositeDirection;
+        this.#reverseAndEnqueue();
     }
 }

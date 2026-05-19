@@ -126,5 +126,39 @@ describe('class Computer extends Player', () => {
                 ).toBe(true);
             });
         });
+        describe('reverses lockedDirection and queues sibling of initialStrike', () => {
+            test.each([
+                { initial: 'B2', secondary: 'B3', initialDirection: 'ASCENDING',  reversedDirection: 'DESCENDING', expectedCoord: 'B1' },
+                { initial: 'B3', secondary: 'B2', initialDirection: 'DESCENDING', reversedDirection: 'ASCENDING',  expectedCoord: 'B4' },
+                { initial: 'C5', secondary: 'D5', initialDirection: 'ASCENDING',  reversedDirection: 'DESCENDING', expectedCoord: 'B5' },
+                { initial: 'D5', secondary: 'C5', initialDirection: 'DESCENDING', reversedDirection: 'ASCENDING',  expectedCoord: 'E5' },
+            ])('$initialDirection → $reversedDirection: queues $expectedCoord from $initial', ({ initial, secondary, expectedCoord }) => {
+                computer.gameBoard.recordPlacedAttack(initial);
+                computer.queueAdjacentAttacks(initial);
+
+                computer.gameBoard.recordPlacedAttack(secondary);
+                computer.queueAdjacentAttacks(secondary);
+
+                computer.handleMissedAttack();
+
+                expect(computer.getAttack()).toBe(expectedCoord);
+            });
+            test('does not enqueue when reversal from initialStrike is out of bounds', () => {
+                // A1 → A2 is ASCENDING; reversed DESCENDING from A1 is out of bounds
+                computer.gameBoard.recordPlacedAttack('A1');
+                computer.queueAdjacentAttacks('A1');
+
+                computer.gameBoard.recordPlacedAttack('A2');
+                computer.queueAdjacentAttacks('A2');
+
+                computer.handleMissedAttack();
+
+                // Queue should be empty — getAttack() falls back to random, so just verify it doesn't throw
+                // and doesn't return either of the already-guessed coordinates
+                const result = computer.getAttack();
+                expect(result).not.toBe('A1');
+                expect(result).not.toBe('A2');
+            });
+        });
     });
 });

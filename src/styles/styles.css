@@ -506,11 +506,14 @@ HIT / MISS ICONS
 .grid-squares {
   div.hit {
     background-image: url("../images/hit_explosion.svg");
-    background-color: rgba(140, 20, 20, 0.85);
   }
   div.miss {
     background-image: url("../images/miss_splash.svg");
-    background-color: rgba(10, 40, 80, 0.85);
+    background-color: rgba(10, 40, 80, 0.1);
+  }
+
+  div.hit, div.miss {
+    z-index: 1;
   }
 }
 

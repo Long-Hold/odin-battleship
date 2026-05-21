@@ -65,10 +65,12 @@ describe('class Game', () => {
             for (let letter = 'A'.charCodeAt(); letter <= 'J'.charCodeAt(); ++letter) {
                 for (let num = 1; num <= 10; ++num) {
                     const coordinate = `${String.fromCharCode(letter)}${num}`;
-                    // Player 1 attacks
-                    expect(game.handleAttack(coordinate)).toBe(false);
-                    // Player 2 attacks
-                    expect(game.handleAttack(coordinate)).toBe(false);
+
+                    const playerOneResult = game.handleAttack(coordinate);
+                    const playerTwoResult = game.handleAttack(coordinate);;
+
+                    expect(playerOneResult.isHit).toBe(false);
+                    expect(playerTwoResult.isHit).toBe(false);
                 }
             }
         });
@@ -116,10 +118,12 @@ describe('class Game', () => {
             test('returns true if a handled attack does hit a ship', () => {
                 for (let i = 0; i < occupiedCoords.length; ++i) {
                     const coord = occupiedCoords[i];
-                    // Player 1 attacks player 2
-                    expect(game.handleAttack(coord)).toBe(true);
-                    // Player 2 attacks player 1
-                    expect(game.handleAttack(coord)).toBe(true);
+
+                    const playerOneResult = game.handleAttack(coord);
+                    const playerTwoResult = game.handleAttack(coord);
+
+                    expect(playerOneResult.isHit).toBe(true);
+                    expect(playerTwoResult.isHit).toBe(true);
                 }
             });
         });

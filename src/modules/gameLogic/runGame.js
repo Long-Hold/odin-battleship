@@ -34,14 +34,14 @@ export async function runGame(game, coordinateRetriever) {
             continue;
         }
 
-        setGridSquareStatus(opponent.board, coord, attackResult);
+        setGridSquareStatus(opponent.board, coord, attackResult.isHit);
 
         /**
          * If the CPU's attack hit the opponents ship, then it will calculate it's next moves
          * intelligently to finish that ship off
          */
         if (current.player === playerTwo) {
-            if (attackResult === true)
+            if (attackResult.isHit === true)
                 playerTwo.queueAdjacentAttacks(coord);
             else
                 playerTwo.handleMissedAttack();

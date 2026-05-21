@@ -345,7 +345,7 @@ export class Gameboard {
      * If no ship is hit, return false.
      * 
      * @param {string} coordinate - The coordinate the opposing player attacked.
-     * @returns {boolean} True if a ship was hit. False if no ship was hit.
+     * @returns {object} True if a ship was hit. False if no ship was hit.
      */
     receiveAttack(coordinate) {
         if (Gameboard.isOutOfBounds(coordinate))
@@ -353,11 +353,22 @@ export class Gameboard {
         
         const normCoord = coordinate.toUpperCase().trim();
         const ship = this.#shipPlacements.get(normCoord);
+        const shipStatus = {
+            isHit: null,
+            isSunk: null,
+        };
 
-        if (!ship) return false;
+        if (!ship) {
+            shipStatus.isHit = false;
+            shipStatus.isSunk = false;
+        }
+        else {
+            ship.hit();
+            shipStatus.isHit = true;
+            shipStatus.isSunk = ship.isSunk();
+        }
 
-        ship.hit();
-        return true;
+        return shipStatus;
     }
 
     /**

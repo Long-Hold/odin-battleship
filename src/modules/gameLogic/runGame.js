@@ -41,7 +41,9 @@ export async function runGame(game, coordinateRetriever) {
          * intelligently to finish that ship off
          */
         if (current.player === playerTwo) {
-            if (attackResult.isHit === true)
+            if (attackResult.isSunk)
+                playerTwo.clearTargetingData();
+            else if (attackResult.isHit === true)
                 playerTwo.queueAdjacentAttacks(coord);
             else
                 playerTwo.handleMissedAttack();

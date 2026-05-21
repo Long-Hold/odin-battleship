@@ -80,13 +80,6 @@ export class Computer extends Player {
         }
     }
 
-    #clearTargetingData() {
-        this.#targeting.queue.length = 0;
-        this.#targeting.initialStrike = null;
-        this.#targeting.lockedDirection = null;
-        this.#targeting.facingAxis = null;
-    }
-
     /**
      * Returns a random, un-played coordinate from the Gameboard.
      * 
@@ -201,5 +194,23 @@ export class Computer extends Player {
         if (!this.#targeting.initialStrike || !this.#targeting.lockedDirection) return;
 
         this.#reverseAndEnqueue();
+    }
+
+    /**
+     * Resets and clears the targeting properties used to follow up on
+     * confirmed hit moves.
+     * 
+     * This method is primarily called by the caller when the game no longer wants the CPU
+     * to make intelligent attacks and use random attack logic instead.
+     * 
+     * @returns {this} An instance of the Class for method chaining.
+     */
+    clearTargetingData() {
+        this.#targeting.queue.length = 0;
+        this.#targeting.initialStrike = null;
+        this.#targeting.lockedDirection = null;
+        this.#targeting.facingAxis = null;
+        
+        return this;
     }
 }

@@ -274,17 +274,38 @@ describe('class Gameboard', () => {
             gameBoard.placeShip(['C8','D8','E8','F8','G8'], '  CarRier ');
         });
 
-        test('returns false if no ship was on passed coordinate', () => {
-            expect(gameBoard.receiveAttack('A7')).toBe(false);
-            expect(gameBoard.receiveAttack('G10')).toBe(false);
-            expect(gameBoard.receiveAttack('b7')).toBe(false);
-            expect(gameBoard.receiveAttack('A1')).not.toBe(false);
+        test('receiveAttack.isHit returns False if no ship was on passed coordinate', () => {
+            expect(gameBoard.receiveAttack('A7').isHit).toBe(false);
+            expect(gameBoard.receiveAttack('G10').isHit).toBe(false);
+            expect(gameBoard.receiveAttack('b7').isHit).toBe(false);
+            expect(gameBoard.receiveAttack('A1').isHit).not.toBe(false);
         });
         
-        test('returns true if ship was present on coordinate', () => {
-            expect(gameBoard.receiveAttack('A1')).toBe(true);
-            expect(gameBoard.receiveAttack('E8')).toBe(true);
-            expect(gameBoard.receiveAttack('J7')).toBe(true);
+        test('receiveAttack.isHit returns True if ship was present on coordinate', () => {
+            expect(gameBoard.receiveAttack('A1').isHit).toBe(true);
+            expect(gameBoard.receiveAttack('E8').isHit).toBe(true);
+            expect(gameBoard.receiveAttack('J7').isHit).toBe(true);
+        });
+
+        test.each([
+            'A1', 'J10', 'I10', 'J6', 'A3'
+        ])('receiveAttack.isSunk returns False when a ship is present on coordinate, but not sunk', (coord) =>{
+            const attackResult = gameBoard.receiveAttack(coord);
+            expect(attackResult.isHit).toBe(true);
+            expect(attackResult.isSunk).toBe(false);
+        });
+
+        test.each([
+            { coordsArray: ['A1', 'A2'] },
+            { coordsArray: ['J10', 'I10', 'H10'] },
+            { coordsArray: ['J6', 'J7', 'J8'] },
+            { coordsArray: ['A3', 'A4', 'A5', 'A6'] },
+            { coordsArray: ['C8', 'D8', 'E8', 'F8', 'G8'] },
+        ])('receiveAttack.isSunk returns True when a ship is sunk', ({coordsArray}) => {
+            for (let i = 0; i < coordsArray.length - 1; ++i) {
+                gameBoard.receiveAttack(coordsArray[i]);
+            }
+            expect(gameBoard.receiveAttack(coordsArray.at(-1)).isSunk).toBe(true);
         });
     });
 

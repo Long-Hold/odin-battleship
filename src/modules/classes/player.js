@@ -133,10 +133,13 @@ export class Computer extends Player {
          * If the coordinate queue is empty, then we aren't trying to sink a ship this turn.
          * The CPU will instead attack a random square anytime this method is called until a hit is landed.
          */
-        if (this.#targeting.queue.length === 0)
-            return this.#getRandomAttack();
-        
-        return this.#targeting.queue.shift();
+        while (this.#targeting.queue.length > 0) {
+            // Remove guessed spacess from the queue
+            const next = this.#targeting.queue.shift();
+            if (!this.gameBoard.guessedSpaces.has(next))
+                return next;
+        }
+        return this.#getRandomAttack();
     }
 
     queueAdjacentAttacks(referenceCoordinate) {

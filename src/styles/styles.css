@@ -515,6 +515,10 @@ HIT / MISS ICONS
   div.hit, div.miss {
     z-index: 1;
   }
+
+  div.hit.sunk {
+    background-image: url("../images/sunk_ship-01.svg");
+  }
 }
 
 /* 

@@ -23,3 +23,11 @@ export function initializeGridResizeObserver(game) {
     });
     observer.observe(playerOneBoard);
 }
+
+export function displaySunkShipGraphic(gameGrid, shipCoords) {
+    for (let i = 0; i < shipCoords.length; ++i) {
+        const coord = shipCoords[i];
+        const gridSquare = gameGrid.querySelector(`[data-coordinate="${coord}"]`);
+        gridSquare.classList.add('sunk');
+    }
+}

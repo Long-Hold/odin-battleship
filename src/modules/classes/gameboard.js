@@ -417,4 +417,23 @@ export class Gameboard {
 
         return this;
     }
+
+    /**
+     * Returns an array of all coordinates occupied by the ship at the given coordinate.
+     * If no ship exists at the coordinate, returns null.
+     *
+     * @param {string} coordinate - Any coordinate the ship occupies.
+     * @returns {string[] | null} All coordinates belonging to that ship, or null if no ship is present.
+     */
+    getShipCoordinates(coordinate) {
+        const normCoord = coordinate.toUpperCase().trim();
+        const ship = this.#shipPlacements.get(normCoord);
+        if (!ship) return null;
+
+        const coords = [];
+        for (const [coord, shipRef] of this.#shipPlacements)
+            if (shipRef === ship) coords.push(coord);
+
+        return coords;
+    }
 }

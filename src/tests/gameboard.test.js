@@ -381,4 +381,46 @@ describe('class Gameboard', () => {
             expect(gameBoard.shipPlacements.size).toBe(0);
         });
     });
+
+    describe('Gameboard.getShipCoordinates()', () => {
+        beforeEach(() => {
+            gameBoard.placeShip(['A1', 'A2'], 'patrolboat');
+            gameBoard.placeShip(['C1', 'C2', 'C3'], 'destroyer');
+        });
+
+        test('returns null when no ship occupies the coordinate', () => {
+            expect(gameBoard.getShipCoordinates('B1')).toEqual(null);
+            expect(gameBoard.getShipCoordinates('J10')).toEqual(null);
+        });
+
+        test('returns null for an invalid coordinate', () => {
+            expect(gameBoard.getShipCoordinates('A0')).toEqual(null);
+            expect(gameBoard.getShipCoordinates('K5')).toEqual(null);
+            expect(gameBoard.getShipCoordinates('')).toEqual(null);
+        });
+
+        test('returns all coordinates the ship occupies', () => {
+            expect(gameBoard.getShipCoordinates('A1')).toEqual(expect.arrayContaining(['A1', 'A2']));
+            expect(gameBoard.getShipCoordinates('A1')).toHaveLength(2);
+
+            expect(gameBoard.getShipCoordinates('C1')).toEqual(expect.arrayContaining(['C1', 'C2', 'C3']));
+            expect(gameBoard.getShipCoordinates('C1')).toHaveLength(3);
+        });
+
+        test('returns the same coordinates regardless of which coordinate on the ship is passed', () => {
+            const fromFirst = gameBoard.getShipCoordinates('C1');
+            const fromMiddle = gameBoard.getShipCoordinates('C2');
+            const fromLast = gameBoard.getShipCoordinates('C3');
+
+            expect(fromFirst.sort()).toEqual(fromMiddle.sort());
+            expect(fromMiddle.sort()).toEqual(fromLast.sort());
+        });
+
+        test('does not include coordinates belonging to other ships', () => {
+            const patrolCoords = gameBoard.getShipCoordinates('A1');
+            expect(patrolCoords).not.toContain('C1');
+            expect(patrolCoords).not.toContain('C2');
+            expect(patrolCoords).not.toContain('C3');
+        });
+    });
 });

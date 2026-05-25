@@ -2,170 +2,186 @@ import { Gameboard } from "../classes/gameboard";
 
 /**
  * Stores the strings that are assigned to the game grid DOM elements.
- * 
+ *
  * These are exported so other modules can reference them, and allows a single source
  * to control their names.
  */
 export const GRID_IDS = {
-    PLAYER_ONE : 'player-one',
-    PLAYER_TWO: 'player-two',
-    COMPUTER: 'computer',
-}
+  PLAYER_ONE: "player-one",
+  PLAYER_TWO: "player-two",
+  COMPUTER: "computer",
+};
 
-const [gridOne, gridTwo] = document.querySelectorAll('.game-grid');
+const [gridOne, gridTwo] = document.querySelectorAll(".game-grid");
 
 /**
  * Constructs the HTML Elements that represent an interactable game grid.
- * 
+ *
  * Construction includes:
  * 1. The Letter and Number coordinate bars
  * 2. The interactable grid squares.
  */
 export function createGameGrid() {
-    function createGridCoordinates() {
-        const [lettersOne, lettersTwo] = document.querySelectorAll('.grid-letters');
-        const [numbersOne, numbersTwo] = document.querySelectorAll('.grid-numbers');
+  function createGridCoordinates() {
+    const [lettersOne, lettersTwo] = document.querySelectorAll(".grid-letters");
+    const [numbersOne, numbersTwo] = document.querySelectorAll(".grid-numbers");
 
-        for (let letter = Gameboard.BOUNDS.COL.START; letter <= Gameboard.BOUNDS.COL.END; ++letter) {
-            const div = document.createElement('div');
-            div.dataset.letter = String.fromCharCode(letter);
-            div.textContent = String.fromCharCode(letter);
-            lettersOne.appendChild(div.cloneNode(true));
-            lettersTwo.appendChild(div.cloneNode(true));
-        }
+    for (
+      let letter = Gameboard.BOUNDS.COL.START;
+      letter <= Gameboard.BOUNDS.COL.END;
+      ++letter
+    ) {
+      const div = document.createElement("div");
+      div.dataset.letter = String.fromCharCode(letter);
+      div.textContent = String.fromCharCode(letter);
+      lettersOne.appendChild(div.cloneNode(true));
+      lettersTwo.appendChild(div.cloneNode(true));
+    }
 
-        for (let number = Gameboard.BOUNDS.ROW.START; number <= Gameboard.BOUNDS.ROW.END; ++number) {
-            const div = document.createElement('div');
-            div.dataset.number = number;
-            div.textContent = number;
-            numbersOne.appendChild(div.cloneNode(true));
-            numbersTwo.appendChild(div.cloneNode(true));
-        }
+    for (
+      let number = Gameboard.BOUNDS.ROW.START;
+      number <= Gameboard.BOUNDS.ROW.END;
+      ++number
+    ) {
+      const div = document.createElement("div");
+      div.dataset.number = number;
+      div.textContent = number;
+      numbersOne.appendChild(div.cloneNode(true));
+      numbersTwo.appendChild(div.cloneNode(true));
     }
-    function createGridSpaces() {
-        const [squaresOne, squaresTwo] = document.querySelectorAll('.grid-squares')
-        squaresOne.replaceChildren();
-        squaresTwo.replaceChildren();
-        for (let i = Gameboard.BOUNDS.ROW.START; i <= Gameboard.BOUNDS.ROW.END; ++i) {
-            for (let j = Gameboard.BOUNDS.COL.START; j <= Gameboard.BOUNDS.COL.END; ++j) {
-                const div = document.createElement('div');
-                div.dataset.coordinate = `${String.fromCharCode(j)}${i}`;
-                squaresOne.appendChild(div.cloneNode(true));
-                squaresTwo.appendChild(div.cloneNode(true));
-            }
-        }
+  }
+  function createGridSpaces() {
+    const [squaresOne, squaresTwo] = document.querySelectorAll(".grid-squares");
+    squaresOne.replaceChildren();
+    squaresTwo.replaceChildren();
+    for (
+      let i = Gameboard.BOUNDS.ROW.START;
+      i <= Gameboard.BOUNDS.ROW.END;
+      ++i
+    ) {
+      for (
+        let j = Gameboard.BOUNDS.COL.START;
+        j <= Gameboard.BOUNDS.COL.END;
+        ++j
+      ) {
+        const div = document.createElement("div");
+        div.dataset.coordinate = `${String.fromCharCode(j)}${i}`;
+        squaresOne.appendChild(div.cloneNode(true));
+        squaresTwo.appendChild(div.cloneNode(true));
+      }
     }
-    createGridCoordinates();
-    createGridSpaces();
+  }
+  createGridCoordinates();
+  createGridSpaces();
 }
 
 /**
  * Assigns ID's to the two gameboard elements on the DOM.
- * 
+ *
  * The first gameboard is always assumed to be a human player.
  * The seccond gameboard is indicated to be either a human player or a computer player
  * depending on the value of the Boolean paramter.
- * 
+ *
  * @param {boolean} hasComputerPlayer - Indicates if this is a Player vs Player or Player vs CPU game.
  */
 export function assignGameGridIDs(hasComputerPlayer = true) {
-    gridOne.id = GRID_IDS.PLAYER_ONE;
-    gridTwo.id = hasComputerPlayer ? GRID_IDS.COMPUTER : GRID_IDS.PLAYER_TWO;
+  gridOne.id = GRID_IDS.PLAYER_ONE;
+  gridTwo.id = hasComputerPlayer ? GRID_IDS.COMPUTER : GRID_IDS.PLAYER_TWO;
 }
 
 /**
  * Creates an img element of each ship type, resizes them, and overlays them onto
  * their grid positions.
- * 
- * @param {HTMLElement} gameBoard - The element that represents the Gameboard. 
+ *
+ * @param {HTMLElement} gameBoard - The element that represents the Gameboard.
  * @param {Map<string, import('../classes/ship').Ship} shipPlacements - An array of coordinates.
- * @param {Map<import('../classes/ship').Ship, string} shipAxis - A map that links a Ship object to the direction it faces. 
+ * @param {Map<import('../classes/ship').Ship, string} shipAxis - A map that links a Ship object to the direction it faces.
  */
 export async function displayShips(gameBoard, shipPlacements, shipAxis) {
-    const shipSprites = gameBoard.querySelectorAll('.ship-sprite');
-    for (let i = 0; i < shipSprites.length; ++i)
-        shipSprites[i].remove();
+  const shipSprites = gameBoard.querySelectorAll(".ship-sprite");
+  for (let i = 0; i < shipSprites.length; ++i) shipSprites[i].remove();
 
-    const gridSquares = gameBoard.querySelector('.grid-squares');
-    const gridRec = gridSquares.getBoundingClientRect();
-    let currentShip = null;
+  const gridSquares = gameBoard.querySelector(".grid-squares");
+  const gridRec = gridSquares.getBoundingClientRect();
+  let currentShip = null;
 
-    for (const [coord, ship] of shipPlacements) {
-        if (currentShip === ship.type)
-            continue;
-        currentShip = ship.type;
+  for (const [coord, ship] of shipPlacements) {
+    if (currentShip === ship.type) continue;
+    currentShip = ship.type;
 
-        const coordElement = gameBoard.querySelector(`[data-coordinate="${coord}"]`);
-        const coordRec = coordElement.getBoundingClientRect();
+    const coordElement = gameBoard.querySelector(
+      `[data-coordinate="${coord}"]`,
+    );
+    const coordRec = coordElement.getBoundingClientRect();
 
-        const boatSprite = await import(`../../images/sprites/${currentShip}.svg`);
-        const img = document.createElement('img');
-        img.src = boatSprite.default;
-        img.classList.add('ship-sprite');
-        gridSquares.appendChild(img);
+    const boatSprite = await import(`../../images/sprites/${currentShip}.svg`);
+    const img = document.createElement("img");
+    img.src = boatSprite.default;
+    img.classList.add("ship-sprite");
+    gridSquares.appendChild(img);
 
-        const left = coordRec.left - gridRec.left;
-        const top = coordRec.top - gridRec.top;
+    const left = coordRec.left - gridRec.left;
+    const top = coordRec.top - gridRec.top;
 
-        img.style.left = `${left}px`;
-        img.style.top = `${top}px`;
+    img.style.left = `${left}px`;
+    img.style.top = `${top}px`;
 
-        const cellWidth = coordRec.width;
-        const shipWidth = cellWidth * ship.length;
-        img.style.width = `${shipWidth}px`;
-        img.style.height = `${cellWidth}px`;
+    const cellWidth = coordRec.width;
+    const shipWidth = cellWidth * ship.length;
+    img.style.width = `${shipWidth}px`;
+    img.style.height = `${cellWidth}px`;
 
-        if (shipAxis.get(ship) === Gameboard.AXIS.ROW) {
-            img.style.transformOrigin = '0 0';;
-            img.style.transform = 'rotate(90deg)';
-            img.style.left = `${left + cellWidth}px`;
-        }
+    if (shipAxis.get(ship) === Gameboard.AXIS.ROW) {
+      img.style.transformOrigin = "0 0";
+      img.style.transform = "rotate(90deg)";
+      img.style.left = `${left + cellWidth}px`;
     }
+  }
 }
 
 /**
  * Locks a gameboard to prevent user interaction, while unlocking the other one.
  * This is done by assigning / removing a custom class from the passed elements.
- * 
+ *
  * @param {HTMLElement} boardToLock - The game grid element to lock.
  * @param {HTMLElement} boardToUnlock - The game grid element to unlock.
  */
 export function swapBoardLock(boardToLock, boardToUnlock) {
-    boardToLock.classList.add('locked');
-    boardToUnlock.classList.remove('locked');
+  boardToLock.classList.add("locked");
+  boardToUnlock.classList.remove("locked");
 }
 
 /**
  * Locks the game grids to prevent user interaction with them.
  */
 export function lockGameBoards() {
-    gridOne.classList.add('locked');
-    gridTwo.classList.add('locked');
+  gridOne.classList.add("locked");
+  gridTwo.classList.add("locked");
 }
 
 /**
  * Adds a class to a single grid square. The class applied depends if the square
  * is a hit or miss.
- * 
+ *
  * @param {HTMLElement} board - The opponent's board to add an icon to
  * @param {string} coord - The coordinate of the square to add an icon to
  * @param {boolean} isHit - The result of the attack to determine which icon is used
  */
 export function setGridSquareStatus(board, coord, isHit) {
-    const gridSquare = board.querySelector(`[data-coordinate="${coord}"]`);
+  const gridSquare = board.querySelector(`[data-coordinate="${coord}"]`);
 
-    gridSquare.classList.add(isHit ? 'hit' : 'miss');
+  gridSquare.classList.add(isHit ? "hit" : "miss");
 }
 
 /**
  * Removes the .hidden class from the end game messages for both players.
  * The winnerBoard has it's .victory message revealed.
  * The loserBoard has it's .defeat message revealed.
- * 
+ *
  * @param {HTMLElement} winnerBoard - The HTML element game board of the winning player
  * @param {HTMLElement} loserBoard - The HTML element game board of the defeated player
  */
 export function showEndGameScreen(winnerBoard, loserBoard) {
-    winnerBoard.querySelector('.victory').classList.remove('hidden');
-    loserBoard.querySelector('.defeat').classList.remove('hidden');
+  winnerBoard.querySelector(".victory").classList.remove("hidden");
+  loserBoard.querySelector(".defeat").classList.remove("hidden");
 }

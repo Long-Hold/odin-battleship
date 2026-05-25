@@ -216,25 +216,44 @@ MY STYLES BELOW THIS LINE
 
 /* Fade in animation for the logo upon page load */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Fade out animation for the logo and button upon a button click */
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes stampIn {
-  from { scale: 3; opacity:0; }
-  to { scale:1; opacity:1; }
+  from {
+    scale: 3;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
 }
 
 /* Pulsing border mainly used to indicate an element is 'unlocked' */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 8px #189e23aa; }
-  50%       { box-shadow: 0 0 20px var(--friendly-green); }
+  0%,
+  100% {
+    box-shadow: 0 0 8px #189e23aa;
+  }
+  50% {
+    box-shadow: 0 0 20px var(--friendly-green);
+  }
 }
 
 *,
@@ -252,7 +271,7 @@ MY STYLES BELOW THIS LINE
 
   --fadeInAnimation: fadeIn 1.5s ease-in forwards;
   --fadeOutAnimation: fadeOut 1.5s ease-out forwards;
-  --game-over-stampIn: stampIn 0.5s ease-in ;
+  --game-over-stampIn: stampIn 0.5s ease-in;
 }
 
 body {
@@ -267,11 +286,11 @@ body {
 
 /* Pseudo-element prevents iOS and mobile performance hits */
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url('../images/stormy_ocean.svg');
+  background-image: url("../images/stormy_ocean.svg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -321,7 +340,8 @@ header {
     width: max(50%, 300px);
   }
 
-  img, button {
+  img,
+  button {
     animation: var(--fadeInAnimation);
   }
 }
@@ -355,7 +375,6 @@ on smaller screens
     width: 300px;
   }
 }
-
 
 @media screen and (max-width: 900px) and (orientation: landscape) {
   #game-grids-container {
@@ -408,10 +427,10 @@ Visual indicators for which boards can be interacted with
   grid-template-rows: auto 1fr;
   grid-template-columns: auto 1fr;
   gap: 0.2rem;
-  grid-template-areas: 
+  grid-template-areas:
     "dummy letters"
     "numbers squares";
-  
+
   .grid-letters {
     grid-area: letters;
     height: fit-content;
@@ -449,7 +468,7 @@ Visual indicators for which boards can be interacted with
 
 .grid-squares {
   position: relative;
-  cursor:pointer;
+  cursor: pointer;
   display: grid;
   grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
@@ -464,7 +483,7 @@ Visual indicators for which boards can be interacted with
   }
 
   div:hover {
-    background-color: rgba(255, 255, 255, 0.50);
+    background-color: rgba(255, 255, 255, 0.5);
   }
 
   div:active {
@@ -474,7 +493,7 @@ Visual indicators for which boards can be interacted with
 
 /* Locks a game grid to prevent user interaction */
 .game-grid.locked {
-  cursor:not-allowed;
+  cursor: not-allowed;
   .grid-squares {
     pointer-events: none;
   }
@@ -494,7 +513,7 @@ GAME BUTTONS
 }
 
 .game-button.hidden {
- visibility: hidden;
+  visibility: hidden;
 }
 
 /* 
@@ -512,7 +531,8 @@ HIT / MISS ICONS
     background-color: rgba(10, 40, 80, 0.1);
   }
 
-  div.hit, div.miss {
+  div.hit,
+  div.miss {
     z-index: 1;
   }
 

@@ -18,7 +18,7 @@ A browser-based implementation of the classic Battleship board game, built with 
 ## Ships
 
 | Ship        | Length |
-|-------------|--------|
+| ----------- | ------ |
 | Carrier     | 5      |
 | Battleship  | 4      |
 | Destroyer   | 3      |

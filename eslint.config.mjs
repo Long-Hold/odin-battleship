@@ -13,7 +13,7 @@ export default defineConfig([
     extends: ["js/recommended"],
     languageOptions: { globals: globals.browser },
   },
-    {
+  {
     files: ["**/*.test.js", "**/*.spec.js", "**/tests/**/*.js"],
     plugins: { jest },
     languageOptions: {

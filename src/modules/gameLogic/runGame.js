@@ -1,5 +1,6 @@
 import { showPlayAgainButton } from "../dom/gameButtons";
 import { lockGameBoards, setGridSquareStatus, showEndGameScreen, swapBoardLock } from "../dom/gameGrid";
+import { displaySunkShipGraphic } from "../dom/gameSprites";
 
 export async function runGame(game, coordinateRetriever) {
     const playerOne = game.playerOne.player;
@@ -35,6 +36,10 @@ export async function runGame(game, coordinateRetriever) {
         }
 
         setGridSquareStatus(opponent.board, coord, attackResult.isHit);
+        if (attackResult.isSunk) {
+            const sunkShipCoordinates = opponent.player.gameBoard.getShipCoordinates(coord);
+            displaySunkShipGraphic(opponent.board, sunkShipCoordinates);
+        }
 
         /**
          * If the CPU's attack hit the opponents ship, then it will calculate it's next moves

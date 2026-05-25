@@ -1,0 +1,590 @@
+/*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
+
+/*
+Document
+========
+*/
+
+/**
+Use a better box model (opinionated).
+*/
+
+@font-face {
+  font-family: "fira_sansregular";
+  src: url(d9aea1df7234878a5b64.woff2) format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
+  font-family:
+    "fira_sansregular", system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.15; /* 1. Correct the line height in all browsers. */
+  -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
+  tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
+}
+
+/*
+Sections
+========
+*/
+
+body {
+  margin: 0; /* Remove the margin in all browsers. */
+}
+
+/*
+Text-level semantics
+====================
+*/
+
+/**
+Add the correct font weight in Chrome and Safari.
+*/
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
+2. Correct the odd 'em' font sizing in all browsers.
+*/
+
+code,
+kbd,
+samp,
+pre {
+  font-family:
+    ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/**
+Add the correct font size in all browsers.
+*/
+
+small {
+  font-size: 80%;
+}
+
+/**
+Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
+*/
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/*
+Tabular data
+============
+*/
+
+/**
+Correct table border color inheritance in Chrome and Safari. (https://issues.chromium.org/issues/40615503, https://bugs.webkit.org/show_bug.cgi?id=195016)
+*/
+
+table {
+  border-color: currentcolor;
+}
+
+/*
+Forms
+=====
+*/
+
+/**
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+*/
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+/**
+Correct the inability to style clickable types in iOS and Safari.
+*/
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+/**
+Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
+*/
+
+legend {
+  padding: 0;
+}
+
+/**
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+
+progress {
+  vertical-align: baseline;
+}
+
+/**
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+
+[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/**
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to 'inherit' in Safari.
+*/
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/*
+Interactive
+===========
+*/
+
+/*
+Add the correct display in Chrome and Safari.
+*/
+
+summary {
+  display: list-item;
+}
+
+/* 
+=====
+MY STYLES BELOW THIS LINE
+=====
+ */
+
+/* Fade in animation for the logo upon page load */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade out animation for the logo and button upon a button click */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes stampIn {
+  from {
+    scale: 3;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+/* Pulsing border mainly used to indicate an element is 'unlocked' */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 8px #189e23aa;
+  }
+  50% {
+    box-shadow: 0 0 20px var(--friendly-green);
+  }
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --friendly-green: rgb(0, 255, 0);
+  --enemy-red: rgb(255, 0, 0);
+  --universal-radius: 10px;
+  --universal-shadow: 4px 4px 5px black;
+
+  --fadeInAnimation: fadeIn 1.5s ease-in forwards;
+  --fadeOutAnimation: fadeOut 1.5s ease-out forwards;
+  --game-over-stampIn: stampIn 0.5s ease-in;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.2rem 0.5rem;
+}
+
+/* Pseudo-element prevents iOS and mobile performance hits */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url(968b7ab113512eb70b1c.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Universal button styling */
+button {
+  color: white;
+  width: 300px;
+  height: 2rem;
+  border: 1px solid rgb(80, 80, 80);
+  box-shadow: var(--universal-shadow);
+  border-radius: var(--universal-radius);
+  background-color: rgba(0, 0, 0, 0.75);
+  transition: 0.4s;
+
+  &:focus-visible,
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    border-color: var(--friendly-green);
+  }
+
+  &:active {
+    background-color: rgb(45, 144, 48);
+  }
+}
+
+/* 
+=====
+INTRO LOADING SCREEN
+=====
+ */
+
+header {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(black, gray);
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  img {
+    width: max(50%, 300px);
+  }
+
+  img,
+  button {
+    animation: var(--fadeInAnimation);
+  }
+}
+
+header.fade-out {
+  animation: var(--fadeOutAnimation);
+}
+
+/*
+=====
+GAME GRID STYLES
+===== 
+*/
+
+#game-grids-container {
+  height: fit-content;
+  display: flex;
+  place-content: center;
+  flex-flow: row wrap;
+  gap: 0.5rem;
+
+  width: clamp(300px, 100%, 1200px);
+}
+
+/*
+Stops the boards from overflowing on both axis
+on smaller screens 
+ */
+@media screen and (max-width: 430px) {
+  #game-grids-container {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 900px) and (orientation: landscape) {
+  #game-grids-container {
+    flex-flow: row nowrap;
+    max-width: 70%;
+  }
+}
+
+.game-grid {
+  padding: 0.6rem 0.8rem;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: var(--universal-radius);
+  box-shadow: var(--universal-shadow);
+
+  flex: 1 1 300px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  text-align: center;
+
+  > * {
+    width: 100%;
+  }
+
+  &:first-of-type h2 {
+    color: var(--friendly-green);
+  }
+  &:nth-of-type(2) h2 {
+    color: var(--enemy-red);
+  }
+}
+
+/*
+====
+Visual indicators for which boards can be interacted with
+===== 
+ */
+
+.game-grid:not(.locked) .grid-squares {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.game-grid .grid-plane {
+  min-width: 100%;
+  aspect-ratio: 1/1;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
+  gap: 0.2rem;
+  grid-template-areas:
+    "dummy letters"
+    "numbers squares";
+
+  .grid-letters {
+    grid-area: letters;
+    height: fit-content;
+  }
+  .grid-numbers {
+    grid-area: numbers;
+    width: fit-content;
+  }
+  .grid-squares {
+    grid-area: squares;
+  }
+}
+
+.grid-letters {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  place-items: center;
+}
+
+.grid-numbers {
+  width: fit-content;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  place-items: center;
+}
+
+.grid-letters,
+.grid-numbers {
+  color: white;
+}
+
+.grid-squares {
+  position: relative;
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+
+  div {
+    background-color: rgba(255, 255, 255, 0.304);
+    outline: 1px solid;
+  }
+
+  div.has-ship {
+    background-color: gray;
+  }
+
+  div:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  div:active {
+    background-color: rgba(23, 64, 12, 0.532);
+  }
+}
+
+/* Locks a game grid to prevent user interaction */
+.game-grid.locked {
+  cursor: not-allowed;
+  .grid-squares {
+    pointer-events: none;
+  }
+}
+/* 
+===== 
+GAME BUTTONS
+=====
+*/
+
+#game-buttons {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.game-button.hidden {
+  visibility: hidden;
+}
+
+/* 
+===== 
+HIT / MISS ICONS
+=====
+*/
+
+.grid-squares {
+  div.hit {
+    background-image: url(f271e07cc0943006f051.svg);
+  }
+  div.miss {
+    background-image: url(0a4bd4ca3856b68ec928.svg);
+    background-color: rgba(10, 40, 80, 0.1);
+  }
+
+  div.hit,
+  div.miss {
+    z-index: 1;
+  }
+
+  div.hit.sunk {
+    background-image: url(3ea9fa17ce142893af30.svg);
+  }
+}
+
+/* 
+=====
+VICTORY / DEFEAT MESSAGES
+===== 
+*/
+
+.game-over-msg.hidden {
+  display: none;
+}
+
+.game-over-msg {
+  width: 100%;
+  animation: var(--game-over-stampIn);
+  &.victory {
+    color: var(--friendly-green);
+  }
+  &.defeat {
+    color: var(--enemy-red);
+  }
+}
+
+.game-grid:has(.victory:not(.hidden)) {
+  box-shadow: 2px 2px 2px var(--friendly-green);
+  transition: box-shadow 1s ease;
+  .grid-squares {
+    border: 2px solid transparent;
+    border-color: var(--friendly-green);
+    transition: border-color 1s ease;
+  }
+}
+.game-grid:has(.defeat:not(.hidden)) {
+  box-shadow: 2px 2px 2px var(--enemy-red);
+  transition: box-shadow 1s ease;
+  .grid-squares {
+    border: 2px solid transparent;
+    border-color: var(--enemy-red);
+    transition: border-color 1s ease;
+  }
+}
+
+.ship-sprite {
+  position: absolute;
+  pointer-events: none;
+  width: fit-content;
+  object-fit: cover;
+}
+

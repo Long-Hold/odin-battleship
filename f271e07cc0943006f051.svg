@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff7a0"/>
+      <stop offset="40%" stop-color="#ffcc00"/>
+      <stop offset="100%" stop-color="#ff6600"/>
+    </radialGradient>
+    <radialGradient id="innerCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#fff176"/>
+      <stop offset="100%" stop-color="#ffcc00"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Outer spiky burst (dark red outline) -->
+  <polygon
+    points="
+      50,4   57,30  72,12  65,37  88,28  72,46
+      96,50  72,54  88,72  65,63  72,88  57,70
+      50,96  43,70  28,88  35,63  12,72  28,54
+      4,50   28,46  12,28  35,37  28,12  43,30
+    "
+    fill="#cc2200"
+    stroke="#7a0000"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+
+  <!-- Mid burst (orange) -->
+  <polygon
+    points="
+      50,14  56,33  69,20  63,39  82,33  68,47
+      88,50  68,53  82,67  63,61  69,80  56,67
+      50,86  44,67  31,80  37,61  18,67  32,53
+      12,50  32,47  18,33  37,39  31,20  44,33
+    "
+    fill="url(#coreGlow)"
+    stroke="#ff8800"
+    stroke-width="1"
+    stroke-linejoin="round"
+  />
+
+  <!-- Inner core glow -->
+  <circle cx="50" cy="50" r="20" fill="url(#innerCore)" opacity="0.95"/>
+
+  <!-- Bright white center flash -->
+  <circle cx="50" cy="50" r="10" fill="white" opacity="0.85"/>
+
+  <!-- Small spark accents -->
+  <circle cx="50" cy="22" r="2.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="78" cy="50" r="2.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="50" cy="78" r="2.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="22" cy="50" r="2.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="71" cy="29" r="2" fill="#ffee88" opacity="0.8"/>
+  <circle cx="71" cy="71" r="2" fill="#ffee88" opacity="0.8"/>
+  <circle cx="29" cy="71" r="2" fill="#ffee88" opacity="0.8"/>
+  <circle cx="29" cy="29" r="2" fill="#ffee88" opacity="0.8"/>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 80">
+  <defs>
+    <linearGradient id="s-hull" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3c5462"/>
+      <stop offset="50%" stop-color="#2e4452"/>
+      <stop offset="100%" stop-color="#1e3040"/>
+    </linearGradient>
+    <linearGradient id="s-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#445e6e"/>
+      <stop offset="50%" stop-color="#344e5e"/>
+      <stop offset="100%" stop-color="#243646"/>
+    </linearGradient>
+    <radialGradient id="s-top" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#4e6878"/>
+      <stop offset="100%" stop-color="#2e4454"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Drop shadow (elongated oval) -->
+  <ellipse cx="97" cy="56" rx="75" ry="10" fill="#0e1820" opacity="0.35"/>
+
+  <!-- Outer hull — cigar/oval shape -->
+  <path d="M 22,40 C 22,24 38,20 95,20 C 152,20 168,24 168,40 C 168,56 152,60 95,60 C 38,60 22,56 22,40 Z"
+        fill="url(#s-hull)" stroke="#385060" stroke-width="1"/>
+
+  <!-- Inner body surface (top deck) -->
+  <path d="M 30,40 C 30,28 44,25 95,25 C 146,25 160,28 160,40 C 160,52 146,55 95,55 C 44,55 30,52 30,40 Z"
+        fill="url(#s-body)"/>
+
+  <!-- Top highlight line (spine) -->
+  <path d="M 32,37 C 50,34 140,34 158,37"
+        fill="none" stroke="#5a7a8c" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Conning tower (sail) — center top -->
+  <rect x="82" y="18" width="26" height="10" rx="3" fill="#253444" stroke="#3a5464" stroke-width="0.8"/>
+  <rect x="87" y="13" width="16" height="7"  rx="2" fill="#1e2c3c" stroke="#304050" stroke-width="0.8"/>
+
+  <!-- Periscope / mast -->
+  <line x1="95" y1="13" x2="95" y2="7"  stroke="#5a7a8a" stroke-width="2"/>
+  <rect x="92" y="7"   width="6" height="3" rx="1" fill="#2a3e50"/>
+  <!-- Periscope eye -->
+  <circle cx="95" cy="7" r="2" fill="#1a2a38" stroke="#5a8090" stroke-width="0.8"/>
+
+  <!-- Rudder planes (aft) -->
+  <path d="M 162,34 L 172,28 L 172,32 L 164,36 Z" fill="#2a3c4c"/>
+  <path d="M 162,46 L 172,52 L 172,48 L 164,44 Z" fill="#2a3c4c"/>
+
+  <!-- Bow planes (fore) -->
+  <path d="M 36,34 L 26,30 L 26,34 L 34,37 Z" fill="#2a3c4c"/>
+  <path d="M 36,46 L 26,50 L 26,46 L 34,43 Z" fill="#2a3c4c"/>
+
+  <!-- Torpedo hatch indicators (bow) -->
+  <ellipse cx="40" cy="37" rx="3" ry="2" fill="#1a2830" stroke="#3a5464" stroke-width="0.6"/>
+  <ellipse cx="40" cy="43" rx="3" ry="2" fill="#1a2830" stroke="#3a5464" stroke-width="0.6"/>
+
+  <!-- Hull edge highlight -->
+  <path d="M 22,40 C 22,24 38,20 95,20 C 152,20 168,24 168,40 C 168,56 152,60 95,60 C 38,60 22,56 22,40 Z"
+        fill="none" stroke="#6090a4" stroke-width="0.6" opacity="0.4"/>
+</svg>

@@ -587,3 +587,8 @@ VICTORY / DEFEAT MESSAGES
   width: fit-content;
   object-fit: cover;
 }
+
+/* Hides CPU ship positions */
+#computer .ship-sprite {
+    display: none;
+}

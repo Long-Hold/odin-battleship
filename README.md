@@ -4,7 +4,7 @@ A browser-based implementation of the classic Battleship board game, built with 
 
 ## Live Demo
 
-[Add link here]
+[Live Demo](https://long-hold.github.io/odin-battleship/)
 
 ## Features
 
